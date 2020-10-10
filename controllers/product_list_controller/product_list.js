@@ -41,6 +41,7 @@ class product_list_details extends BaseModel {
                 product_price:validatedData.product_price,
                 product_mrp:validatedData.product_mrp,
                 product_quantity_detail:validatedData.product_quantity_detail,
+                product_image_url: validatedData.product_image_url
                
 
                 
