@@ -30,6 +30,7 @@ const MerchantcredentialsSchema = {
         shop_latitude: Joi.number().required(),
         shop_longitude: Joi.number().required(),
         state: Joi.string().trim().regex(regex.only_alphabets).required().label('state').error(()=> 'Invalid city'),
+        image_url: Joi.string().trim().regex().required().label('image_url').error(()=> 'Invalid image_url'),
         post_code: Joi.number().required().label('post_code').error(()=> 'Invalid post_code'),
       })
     },
