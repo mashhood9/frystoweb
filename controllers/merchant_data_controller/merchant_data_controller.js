@@ -44,7 +44,8 @@ class merchant_data_details extends BaseModel {
                 shop_longitude:validatedData.shop_longitude,
                 state:validatedData.state,
                 post_code:validatedData.post_code,
-                date:current_date
+                date:current_date,
+                image_url:validatedData.image_url
 
                 
             };
