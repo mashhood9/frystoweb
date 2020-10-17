@@ -92,6 +92,7 @@ async signin(user_credentials) {
                         mobile_number:signin_data.mobile_number,
                         sessionId:sessionId,
                         otpId:otpId,
+                        expiresIn: "10h"
                         
                     });
                     let token= crypto.encrypt(jwt_token)
