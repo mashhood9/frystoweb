@@ -14,7 +14,7 @@ class Login extends BaseModel{
         this.db = mongoClient.getDb().db(config.database);
     }
 
-    async signin(user_credentials) {
+async signin(user_credentials) {
         try {
             // const last_login_time = moment().utc().format('DD-MM-YYYY HH:mm:ss');
             let signin_data = await this.validateModelSchema(user_credentials, validatorSchema.signin());
@@ -22,7 +22,7 @@ class Login extends BaseModel{
             const last_login_type = 'normal';
             let collection = this.db.collection(collections.user);
             let result = await collection.findOne({
-                email: signin_data.email.toString().toLowerCase(),
+                mobile_number: signin_data.mobile_number,
                 is_deleted : false
             }, {
                     projection: {
@@ -38,42 +38,100 @@ class Login extends BaseModel{
                  //   throw new CustomError('Mobile not verified', 400, 'signin');
                // };
 
-                if (!result.password) {
-                    throw new CustomError('Password not set for normal login.', 400, 'signin');
-                };
+                // if (!result.password) {
+                //     throw new CustomError('Password not set for normal login.', 400, 'signin');
+                // };
 
-                let match = await bcrypt.compare(signin_data.password, result.password);
+                // let match = await bcrypt.compare(signin_data.password, result.password);
 
-                if (match) {
-                    await collection.updateOne(
-                        { 
-                            email: signin_data.email.toString().toLowerCase()
-                        },
-                        {
-                            $set: {
-                                'last_login_time': last_login_time,
-                                'last_login_type': last_login_type
-                            }
-                        });
+                // if (match) {
+                //     await collection.updateOne(
+                //         { 
+                //             email: signin_data.email.toString().toLowerCase()
+                //         },
+                //         {
+                //             $set: {
+                //                 'last_login_time': last_login_time,
+                //                 'last_login_type': last_login_type
+                //             }
+                //         });
 
-                    let jwt_token = await authToken.encrypt({
-                        user_id: result.user_id,
-                        email: result.email,
-                        user_role : result.user_role
-                    });
+                //     let jwt_token = await authToken.encrypt({
+                //         user_id: result.user_id,
+                //         email: result.email,
+                //         user_role : result.user_role
+                //     });
                    
-                    let token= crypto.encrypt(jwt_token);
+                //     let token= crypto.encrypt(jwt_token);
 
-                    return ({user_id:result.user_role, user_name:result.first_name, token});
-                } else {
-                    throw new CustomError('Invalid Email/Password', 400, 'signin');
-                }
+                //     return ({user_id:result.user_role, user_name:result.first_name, token});
+                // } else {
+                //     throw new CustomError('Invalid Email/Password', 400, 'signin');
+                // }
+                const needle = require('needle');
+                var sessionId;
+                
+                var otpId=Math.floor(100000 + Math.random() * 900000).toString();
+                var baseurl='https://2factor.in/API/V1/74ab6f7a-fc1c-11ea-9fa5-0200cd936042/SMS/';
+                var mobile_num= signin_data.mobile_number,
+                url = baseurl.concat(mobile_num.toString(),'/',otpId,'/','OTP')
+                
+
+
+
+                  needle.get(url, {json: true}, (err, res) => {
+                            if (err)  { 
+                                    return console.log(err); 
+                            }
+                            let todo = res.body;
+                           console.log(todo);
+                           sessionId=todo.Details;
+                            });
+                    
+                    let jwt_token= await authToken.encrypt({
+                        mobile_number:signin_data.mobile_number,
+                        sessionId:sessionId,
+                        otpId:otpId,
+                        
+                    });
+                    let token= crypto.encrypt(jwt_token)
+
+                    return token;
 
             } else {
-                throw new CustomError('Invalid Email/Password', 400, 'signin');
+                throw new CustomError('Invalid mobile number', 400, 'signin');
             }
         } catch (error) {
             console.log('Signin: ', error);
+            throw new CustomError(error.message, error.statusCode, error.functionName);
+        }
+    }
+    // VerifyOTP
+    async veryfyOTP(otp_data){
+        try{
+            console.log(otp_data);
+            otp_data= this.validateModelSchema(otp_data, validatorSchema.otpverify());
+            let decrypted_token= await crypto.decrypt(otp_data.otp_token);
+            let authData= await authToken.verifyToken(decrypted_token);
+            if(authData){
+                let result=await this.db.collection(collections.user).findOne({
+                    mobile_number:authData.data.mobile_number,
+                    is_deleted:false,
+                    })
+                let userdata;
+                const order_list_collection = this.db.collection(collections.user);
+                if(otp_data.otp_number==authData.data.otpId){
+                userdata = await order_list_collection.find({ mobile_number: parseInt(authData.data.mobile_number) }).toArray();
+                    return userdata;
+
+                }else{
+                    return 'wrong otp';
+                }
+
+            }
+
+        } catch (error) {
+            console.log('otp ', error);
             throw new CustomError(error.message, error.statusCode, error.functionName);
         }
     }
