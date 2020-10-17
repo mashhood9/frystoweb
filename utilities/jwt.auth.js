@@ -5,7 +5,9 @@ const options = { expiresIn: process.env.TOKEN_EXPIRY_TIME };
 let encrypt = (user) => {
     return jwt.sign({
         data: user
-      }, secretKey, options)
+      }, secretKey, 
+//                     options
+                   )
 }
 
 let verifyToken = (authToken) => {
