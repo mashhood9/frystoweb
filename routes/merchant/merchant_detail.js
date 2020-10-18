@@ -28,6 +28,20 @@ router.get("/list/by_lat_lang", async (req, res) => {
     }
   });
 
+
+  router.get("/user/user_id", async (req, res) => {
+    try {
+        let adminController = new Merchant_Data();
+        let UserId = req.query.user_id || 0;
+        let response = await adminController.getUserByUserId(UserId);
+        res.send({ success : true, data: response, message: 'Use data successfully' });
+    } catch (error) {
+        res.status(error.statusCode || 500).send({ success: false, message: error.message });
+    }
+  });
+
+
+
   router.get("/order/by_merchant_id", async (req, res) => {
     try {
         let adminController = new Order_Cycle();
