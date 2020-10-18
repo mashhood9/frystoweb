@@ -106,7 +106,7 @@ class merchant_data_details extends BaseModel {
                 let Userdata;
                 if(UserId){
 
-                    Userdata = await order_list_collection.find({ user_id: parseInt(UserId) },
+                    Userdata = await order_list_collection.findOne({ user_id: parseInt(UserId) },
                      {
                     
                 projection: {
