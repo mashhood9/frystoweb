@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 const secretKey = 'harrypotter@2406';
-const options = { expiresIn: process.env.TOKEN_EXPIRY_TIME };
+const options = { expiresIn: "24h" };
 
 let encrypt = (user) => {
     return jwt.sign({
         data: user
       }, secretKey, 
-//                     options
+                    options
                    )
 }
 
