@@ -98,6 +98,24 @@ class merchant_data_details extends BaseModel {
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
         }
     }
+    // user data is fetched from here------------------
+
+        async getUserByUserId(UserId){
+            try{
+                const order_list_collection = this.db.collection(collections.user);
+                let Userdata;
+                if(UserId){
+
+                    Userdata = await order_list_collection.find({ user_id: parseInt(UserId) }).toArray();
+                }
+                return Userdata;
+            } catch(error){
+                console.log(error);
+                throw new CustomError(error.message, error.statusCode, 'userdata'); 
+            }
+        }
+    
+    
     async getOrderByMerchantId(merchant_id){
         try{
             const order_list_collection = this.db.collection(collections.order_list);
