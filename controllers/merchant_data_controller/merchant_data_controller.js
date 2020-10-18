@@ -106,9 +106,23 @@ class merchant_data_details extends BaseModel {
                 let Userdata;
                 if(UserId){
 
-                    Userdata = await order_list_collection.find({ user_id: parseInt(UserId) }).toArray();
+                    Userdata = await order_list_collection.find({ user_id: parseInt(UserId) },
+                     {
+                    
+                projection: {
+                    "user_id": 1,
+                    "is_mobile_verified": 1,
+                    "email":1,
+                    "mobile_number":1,
+                    "first_name":1,
+                    "last_name":1,
+
+                    
                 }
-                return Userdata;
+
+             } );
+        }
+        return ({user_id:Userdata.user_id, email:Userdata.email,mobile_number:Userdata.mobile_number, first_name:Userdata.first_name, last_name:Userdata.last_name})                                            
             } catch(error){
                 console.log(error);
                 throw new CustomError(error.message, error.statusCode, 'userdata'); 
