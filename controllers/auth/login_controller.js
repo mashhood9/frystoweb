@@ -122,9 +122,18 @@ async signin(user_credentials) {
                 let userdata;
                 const order_list_collection = this.db.collection(collections.user);
                 if(otp_data.otp_number==authData.data.otpId){
-                userdata = await order_list_collection.find({ mobile_number: parseInt(authData.data.mobile_number) }).toArray();
-                    return userdata;
+               userdata = await order_list_collection.findOne({ mobile_number: parseInt(authData.data.mobile_number) },
+                {
+                    
+                        projection: {
+                            "user_id": 1,
+                            "is_mobile_verified": 1,
+                            
+                        }
 
+                     } );
+                console.log(userdata.user_id)
+                    return ({user_id:userdata.user_id});
                 }else{
                     return 'wrong otp';
                 }
