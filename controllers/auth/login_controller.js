@@ -122,7 +122,7 @@ async signin(user_credentials) {
                 let userdata;
                 const order_list_collection = this.db.collection(collections.user);
                 if(otp_data.otp_number==authData.data.otpId){
-                userdata = await order_list_collection.find({ mobile_number: parseInt(authData.data.mobile_number) }).toArray();
+                userdata = await order_list_collection.find({ mobile_number: parseInt(authData.data.mobile_number) });
                     return userdata;
 
                 }else{
