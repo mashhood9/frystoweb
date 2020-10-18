@@ -23,7 +23,7 @@ const credentialsSchema = {
       return Joi.object().keys({
         // email: Joi.string().lowercase().regex(regex.email).required().label('Email').error(()=> 'Invalid Email'),
         // password: Joi.string().required().label('Password').error(()=> 'Invalid Password')
-        mobile_number: Joi.number().required().label('Mobile Number').error(()=> 'Invalid Mobile Number'),
+//         mobile_number: Joi.number().required().label('Mobile Number').error(()=> 'Invalid Mobile Number'),
         otp_number: Joi.number().required().label('OTP Number').error(()=> 'Invalid OTP Number'),
         otp_token: Joi.string().trim().required().label('tokenotp').error(()=> 'Invalid TokenOtp'),
 
