@@ -15,11 +15,11 @@ const OrderListSchema = {
                 item_mrp:Joi.number().integer(),
                 item_total_price: Joi.number().integer(),
             })),
-            product_description: Joi.string().required().trim().regex(regex.only_alphabets).label('product_description').error(()=> 'Invalid product_description'),
+            product_description: Joi.string().trim().regex(regex.only_alphabets).label('product_description').error(()=> 'Invalid product_description'),
             total_price:Joi.number().integer(),
             status:  Joi.string().required().trim().regex(regex.only_alphabets).label('Status').error(()=> 'order_status'),
             mode_of_payment:Joi.string().required().trim().regex(regex.only_alphabets).label('mode of payment').error(()=> 'mode of payment invalid'),
-            delivery_time:Joi.string().required().trim().regex(regex.only_alphabets).label('delivery time').error(()=> 'delivery time'),
+            delivery_time:Joi.string().trim().regex(regex.only_alphabets).label('delivery time').error(()=> 'delivery time'),
 
         });
       }
