@@ -15,7 +15,7 @@ const OrderListSchema = {
                 item_price:Joi.number().integer(),
                 item_quantity:Joi.number().integer(),
                 item_mrp:Joi.number().integer(),
-                item_quantity_detail:Joi.string().required().trim().regex(regex.only_alphabets).label('quantity detail').error(()=> 'Invalid quantity detail'),\
+                item_quantity_detail:Joi.string().required().trim().regex(regex.only_alphabets).label('quantity detail').error(()=> 'Invalid quantity detail'),
                 item_image_url:Joi.string().required().trim().regex(regex.only_alphabets).label('image_url').error(()=> 'Invalid image url'),
             })),
             product_description: Joi.string().trim().regex(regex.only_alphabets).label('product_description').error(()=> 'Invalid product_description'),
