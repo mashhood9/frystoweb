@@ -8,12 +8,15 @@ const OrderListSchema = {
             user_id: Joi.number().integer(),
             user_id_address: Joi.string().required().trim().regex(regex.only_alphabets).label('product_name').error(()=> 'Invalid product_name'),
             product_list:Joi.array().items(Joi.object({
+                item_product_id:Joi.number().integer(),
+                item_merchant_frysto_id:Joi.number().integer(),
                 item_english_name:Joi.string().required().trim().regex(regex.only_alphabets).label('english_name').error(()=> 'Invalid english_name'),
                 item_hindi_name:Joi.string().required().trim().regex(regex.only_alphabets).label('hindi_name').error(()=> 'Invalid hindi_name'),
                 item_price:Joi.number().integer(),
                 item_quantity:Joi.number().integer(),
                 item_mrp:Joi.number().integer(),
-                item_total_price: Joi.number().integer(),
+                item_quantity_detail:Joi.string().required().trim().regex(regex.only_alphabets).label('quantity detail').error(()=> 'Invalid quantity detail'),\
+                item_image_url:Joi.string().required().trim().regex(regex.only_alphabets).label('image_url').error(()=> 'Invalid image url'),
             })),
             product_description: Joi.string().trim().regex(regex.only_alphabets).label('product_description').error(()=> 'Invalid product_description'),
             total_price:Joi.number().integer(),
