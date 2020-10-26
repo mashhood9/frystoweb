@@ -6,7 +6,7 @@ const OrderListSchema = {
         return Joi.object().keys({
             merchant_frysto_id: Joi.number().integer(),
             user_id: Joi.number().integer(),
-            user_id_address: Joi.string().required().trim().regex(regex.only_alphabets).label('product_name').error(()=> 'Invalid product_name'),
+            user_id_address: Joi.string().trim().regex(regex.only_alphabets).label('product_name').error(()=> 'Invalid product_name'),
             product_list:Joi.array().items(Joi.object({
                 item_product_id:Joi.number().integer(),
                 item_merchant_frysto_id:Joi.number().integer(),
@@ -20,8 +20,8 @@ const OrderListSchema = {
             })),
             product_description: Joi.string().trim().regex(regex.only_alphabets).label('product_description').error(()=> 'Invalid product_description'),
             total_price:Joi.number().integer(),
-            status:  Joi.string().required().trim().regex(regex.only_alphabets).label('Status').error(()=> 'order_status'),
-            mode_of_payment:Joi.string().required().trim().regex(regex.only_alphabets).label('mode of payment').error(()=> 'mode of payment invalid'),
+            status:  Joi.string().trim().regex(regex.only_alphabets).label('Status').error(()=> 'order_status'),
+            mode_of_payment:Joi.string().trim().regex(regex.only_alphabets).label('mode of payment').error(()=> 'mode of payment invalid'),
             delivery_time:Joi.string().trim().regex(regex.only_alphabets).label('delivery time').error(()=> 'delivery time'),
 
         });
