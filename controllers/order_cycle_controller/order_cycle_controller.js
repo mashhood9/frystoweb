@@ -90,9 +90,9 @@ class Order extends BaseModel {
                         projection: {
                             "product_list": 1
                         }
-                    }).toArray();
+                    });
             }
-            return productList;
+            return ({productList:productList});
         } catch(error){
             console.log(error);
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
