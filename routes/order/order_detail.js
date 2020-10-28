@@ -27,8 +27,8 @@ router.get("/order/by_user_id", async (req, res) => {
 router.get("/order/by_user_id/list_item/", async (req, res) => {
     try {
         let adminController = new Order_Cycle();
-        let user_id = req.query.user_id || 0;
-        let response = await adminController. getOrderListByUserId(user_id);
+        let order_id = req.query.order_id || 0;
+        let response = await adminController. getOrderListByUserId(order_id);
         res.send({ success : true, data: response, message: 'Master list successfully' });
     } catch (error) {
         res.status(error.statusCode || 500).send({ success: false, message: error.message });
