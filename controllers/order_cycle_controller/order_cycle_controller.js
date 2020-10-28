@@ -78,14 +78,14 @@ class Order extends BaseModel {
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
         }
     }
-    async getOrderListByUserId(user_id){
+    async getOrderListByUserId(order_id){
         try{
             const order_list_collection = this.db.collection(collections.order_list);
             let productList;
-            if(user_id === 0){
+            if(order_id === 0){
                 productList = await order_list_collection.find({}).toArray();
             } else {
-                productList = await order_list_collection.find({ merchant_id: parseInt(user_id) },
+                productList = await order_list_collection.find({ order_id: parseInt(order_id) },
                                                                {
                         projection: {
                             "product_list": 1
