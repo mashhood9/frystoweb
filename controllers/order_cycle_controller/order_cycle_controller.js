@@ -92,7 +92,7 @@ class Order extends BaseModel {
                         }
                     });
             }
-            return ({productList:productList});
+            return ({productListItem:productList});
         } catch(error){
             console.log(error);
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
