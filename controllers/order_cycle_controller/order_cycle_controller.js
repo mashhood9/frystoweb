@@ -90,7 +90,7 @@ class Order extends BaseModel {
                         projection: {
                             "product_list": 1
                         }
-                    });
+                    }).toArray();
             }
             return productList;
         } catch(error){
