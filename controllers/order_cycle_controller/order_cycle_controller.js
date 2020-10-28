@@ -82,7 +82,7 @@ class Order extends BaseModel {
         try{
             const order_list_collection = this.db.collection(collections.order_list);
             let productList;
-            if(merchant_id === 0){
+            if(user_id === 0){
                 productList = await order_list_collection.find({}).toArray();
             } else {
                 productList = await order_list_collection.find({ merchant_id: parseInt(user_id) },
