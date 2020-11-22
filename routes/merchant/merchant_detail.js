@@ -4,6 +4,31 @@ var router = express.Router();
 let Merchant_Data = require('../../controllers/merchant_data_controller/merchant_data_controller');
 
 
+router.post('/merchant_signin', async(req,res)=> {
+    try{
+        let login = new Merchant_Data();
+        let response=await login.merchant_authentication(req.body);
+        res.status(200).send({ success: true, token: response, message: 'Success', statusCode : 200 });
+
+    }catch{
+        res.status(error.statusCode || 500).send({ success: false, message: error.message, statusCode: error.statusCode || 500});
+    }
+
+});
+
+router.post('/merchant_signin_verify', async (req, res) => {
+    try {
+        let login = new Merchant_Data();
+        let response = await login.merchant_verifyOTP(req.body);
+         res.status(200).send({ success: true, token: response, message: 'Success', statusCode : 200 });
+    } catch (error) { 
+        res.status(error.statusCode || 500).send({ success: false, message: error.message, statusCode: error.statusCode || 500});
+    }
+});
+
+
+
+
 router.post('/add_merchant_list_detail', async (req, res) => {
     try {
         let order = new Merchant_Data();        
