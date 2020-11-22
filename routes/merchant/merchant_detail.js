@@ -4,6 +4,16 @@ var router = express.Router();
 let Merchant_Data = require('../../controllers/merchant_data_controller/merchant_data_controller');
 
 
+router.post('/add_merchant_detail', async (req, res) => {
+    try {
+        let order = new Merchant_Data();        
+        let response = await order.add_merchant_detail(req.body);
+        res.send({success:true, response});
+    } catch (error) {
+        res.status(error.statusCode || 500).send({error:error.message});
+    }
+});
+
 router.post('/merchant_signin', async(req,res)=> {
     try{
         let login = new Merchant_Data();
@@ -26,19 +36,6 @@ router.post('/merchant_signin_verify', async (req, res) => {
     }
 });
 
-
-
-
-router.post('/add_merchant_list_detail', async (req, res) => {
-    try {
-        let order = new Merchant_Data();        
-        let response = await order.add_merchant_detail(req.body);
-        res.send({success:true, response});
-    } catch (error) {
-        res.status(error.statusCode || 500).send({error:error.message});
-    }
-});
-
 router.get("/list/by_lat_lang", async (req, res) => {
     try {
         let adminController = new Merchant_Data();
@@ -53,7 +50,6 @@ router.get("/list/by_lat_lang", async (req, res) => {
     }
   });
 
-
   router.get("/user/user_id", async (req, res) => {
     try {
         let adminController = new Merchant_Data();
@@ -64,8 +60,6 @@ router.get("/list/by_lat_lang", async (req, res) => {
         res.status(error.statusCode || 500).send({ success: false, message: error.message });
     }
   });
-
-
 
   router.get("/order/by_merchant_id", async (req, res) => {
     try {
