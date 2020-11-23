@@ -100,7 +100,7 @@ async signin(user_credentials) {
                     return token;
 
             } else {
-                throw new CustomError('Invalid mobile number', 400, 'signin');
+                throw new CustomError('Oops! Invalid mobile number', 400, 'signin');
             }
         } catch (error) {
             console.log('Signin: ', error);
