@@ -74,7 +74,7 @@ async signin(user_credentials) {
                 var otpId=Math.floor(100000 + Math.random() * 900000).toString();
                 var baseurl='https://2factor.in/API/V1/74ab6f7a-fc1c-11ea-9fa5-0200cd936042/SMS/';
                 var mobile_num= signin_data.mobile_number,
-                url = baseurl.concat(mobile_num.toString(),'/',otpId,'/','OTP')
+                url = baseurl.concat(mobile_num.toString(),'/',otpId,'/','Frysto')
                 
 
 
