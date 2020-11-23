@@ -135,7 +135,7 @@ async signin(user_credentials) {
                 console.log(userdata.user_id)
                     return ({user_id:userdata.user_id});
                 }else{
-                    return 'wrong otp';
+                    throw new CustomError('Oops! Invalid OTP number', 400, 'veryfyOTP');
                 }
 
             }
