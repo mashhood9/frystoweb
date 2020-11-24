@@ -29,7 +29,7 @@ class merchant_data_details extends BaseModel {
           const last_login_type = 'normal';
           let collection = this.db.collection(collections.merchant_data_detail);
           let result = await collection.findOne({
-              mobile_number: merchantId_data.mobile_number,
+              mobile_number: signin_data.mobile_number,
           }, {
                   projection: {
                      "mobile_number":1
