@@ -13,7 +13,7 @@ const MerchantcredentialsSchema = {
     },
     merchant_signin: () => {
       return Joi.object().keys({
-        mobile_number: Joi.number().integer().required(),
+        mobile_number: Joi.number().required().label('Mobile Number').error(()=> 'Invalid Mobile Number'),
       })
     },
 
