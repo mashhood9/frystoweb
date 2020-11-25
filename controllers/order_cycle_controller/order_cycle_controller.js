@@ -70,7 +70,7 @@ class Order extends BaseModel {
             if(merchant_id === 0){
                 productList = await order_list_collection.find({}).toArray();
             } else {
-                productList = await order_list_collection.find({ merchant_id: parseInt(merchant_id) }).toArray();
+                productList = await order_list_collection.find({ frysto_merchant_id: parseInt(merchant_id) }).toArray();
             }
             return productList;
         } catch(error){
