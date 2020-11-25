@@ -46,6 +46,16 @@ router.get("/order/by_user_id/list_item/", async (req, res) => {
     }
   });
 
+router.post('/order/order_status', async (req, res) => {
+    try {
+        let order = new Order_Cycle();        
+        let response = await order.orderstatusbyMerchant(req.body);
+        res.send({success:true, response});
+    } catch (error) {
+        res.status(error.statusCode || 500).send(error.message);
+    }
+});
+
 
 router.get('/get-otp', async (req, res) => {
     try {
