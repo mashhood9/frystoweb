@@ -98,6 +98,31 @@ class Order extends BaseModel {
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
         }
     }
+    
+     async orderstatusbyMerchant(data){
+        try{
+            
+            let joi_validator = new BaseModel();
+            let validatedData = joi_validator.validateModelSchema(data, ordervalidator.OrderStatus());
+           
+            let order_collection = this.db.collection(collections.order_list);
+            const find_order = await order_collection.findOne({
+                order_id:validatedData.order_id
+            })
+            if(find_order){
+                order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{status:validatedData.order_status}})
+
+                return 'done';
+
+            }
+
+    
+            throw new CustomError(error.message, error.statusCode, 'Not Accepted'); 
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'not Accepted'); 
+        }
+    }
 
     async getNextUserIdValue() {
         let collection = this.db.collection(collections.user_counters);
