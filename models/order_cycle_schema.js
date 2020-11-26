@@ -25,6 +25,13 @@ const OrderListSchema = {
             delivery_time:Joi.string().trim().regex(regex.only_alphabets).label('delivery time').error(()=> 'delivery time'),
 
         });
-      }
+      },
+    OrderStatus:()=>{
+        return Joi.object().keys({
+            order_id:Joi.number().integer(),
+            order_status: Joi.string().required().trim().regex(regex.only_alphabets).label('order_status').error(()=> 'Invalid order_status'),
+
+        });
+    }
 };
 module.exports = OrderListSchema;
