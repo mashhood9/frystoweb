@@ -70,6 +70,22 @@ class Order extends BaseModel {
             if(merchant_id === 0){
                 productList = await order_list_collection.find({}).toArray();
             } else {
+                productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id) }).toArray();
+            }
+            return productList;
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
+    
+      async pendingOrderByMerchantId(merchant_id){
+        try{
+            const order_list_collection = this.db.collection(collections.order_list);
+            let productList;
+            if(merchant_id === 0){
+                productList = await order_list_collection.find({}).toArray();
+            } else {
                 productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id) , status: "Pending" }).toArray();
             }
             return productList;
