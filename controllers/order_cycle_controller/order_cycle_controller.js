@@ -24,6 +24,7 @@ class Order extends BaseModel {
             let order_collection = this.db.collection(collections.order_list);
             const order_id = await this.getNextUserIdValue();
             let current_date = moment().utc().toDate();
+            const otp = Math.floor(1000 + Math.random() * 9000);
             
             const payload = {
                 order_id:order_id,
@@ -37,6 +38,7 @@ class Order extends BaseModel {
                 mode_of_payment:validatedData.mode_of_payment,
                 delivery_time:validatedData.delivery_time,
                 order_time_date: current_date,
+                order_otp:otp,
                 
             };
 
