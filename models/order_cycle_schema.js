@@ -6,7 +6,7 @@ const OrderListSchema = {
         return Joi.object().keys({
             merchant_frysto_id: Joi.number().integer(),
             user_id: Joi.number().integer(),
-            user_id_address: Joi.string().trim().regex(regex.only_alphabets).label('invalid user_address').error(()=> 'Invalid invalid user_address'),
+            user_id_address: Joi.string().trim().label('invalid user_address').error(()=> 'Invalid invalid user_address'),
             product_list:Joi.array().items(Joi.object({
                 item_product_id:Joi.number().integer(),
                 item_merchant_frysto_id:Joi.number().integer(),
