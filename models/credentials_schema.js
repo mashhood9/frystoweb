@@ -7,9 +7,9 @@ const credentialsSchema = {
           email: Joi.string().lowercase().regex(regex.email).required().label('Email').error(()=> 'Invalid Email'),
           first_name: Joi.string().trim().regex(regex.only_alphabets).required().label('First Name').error(()=> 'Invalid First Name'),
           last_name: Joi.string().trim().regex(regex.only_alphabets).required().label('Last Name').error(()=> 'Invalid Last Name'),
-          password: Joi.string().required().label('Password').error(()=> 'Invalid Password'),
+//           password: Joi.string().required().label('Password').error(()=> 'Invalid Password'),
           mobile_number: Joi.number().required().label('Mobile Number').error(()=> 'Invalid Mobile Number'),
-          user_role: Joi.number().required().label('User Role').error(()=> 'Invalid User Role'),
+//           user_role: Joi.number().required().label('User Role').error(()=> 'Invalid User Role'),
         })
     },
     signin: () => {
