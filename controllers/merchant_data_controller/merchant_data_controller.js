@@ -166,7 +166,7 @@ class merchant_data_details extends BaseModel {
                 throw new CustomError('merchant_data_already  exist', 400, 'details');
             }
 
-            let merchant_frysto_id = await this.getNextUserIdValue();
+            const merchant_frysto_id = await this.getNextUserIdValue();
             
             const payload = {
                 merchant_frysto_id:merchant_frysto_id,
@@ -188,6 +188,7 @@ class merchant_data_details extends BaseModel {
 
                 
             };
+            console.log(merchant_frysto_id);
 
             const payload_merchant_detail = {
 
