@@ -55,9 +55,9 @@ class Signup {
             let mobile_otp = Math.floor(100000 + Math.random() * 900000);
 
             let is_mobile_verified = false;
-            let user_role = user_signup_data.user_role;
+            let user_role = 'end-user';
             let user_id = await this.getNextUserIdValue();
-            let encrypted_password = bcrypt.hashSync(user_signup_data.password, saltRounds);
+//             let encrypted_password = bcrypt.hashSync(user_signup_data.password, saltRounds);
 
             const payload = {
                 user_id: user_id,
@@ -70,7 +70,7 @@ class Signup {
                 user_role: user_role,
                 first_name: user_signup_data.first_name,
                 last_name: user_signup_data.last_name,
-                password: encrypted_password
+//                 password: encrypted_password
             }
           //  const otp_result = await  sendOtp.sendOtp(user_signup_data.mobile_number, mobile_otp);//
             let inserted_user_data = await user_collection.insertOne(payload);
