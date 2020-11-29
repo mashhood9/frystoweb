@@ -159,7 +159,9 @@ class merchant_data_details extends BaseModel {
             let merchant_data_collection = this.db.collection(collections.merchant_data_detail);
             const order_id = await this.getNextUserIdValue();
             let merchant_data = await merchant_data_collection.findOne({$or:[{
-                merchant_frysto_id : validatedData.merchant_frysto_id
+                email:validatedData.email,
+                mobile_number:validatedData.mobile_number,
+                
             }]});
 
             if (merchant_data) {
@@ -171,6 +173,7 @@ class merchant_data_details extends BaseModel {
             const payload = {
                 merchant_frysto_id:merchant_frysto_id,
                 merchant_name: validatedData.merchant_name,
+                email:validatedData.email,
                 shop_name:validatedData.shop_name,
                 mobile_number:validatedData.mobile_number,
                 account_number:validatedData.account_number,
