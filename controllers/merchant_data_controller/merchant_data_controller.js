@@ -189,6 +189,7 @@ class merchant_data_details extends BaseModel {
                 
             };
             console.log(merchant_frysto_id);
+            console.log('merchant_id');
 
             const payload_merchant_detail = {
 
