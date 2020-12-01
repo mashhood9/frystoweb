@@ -57,7 +57,7 @@ class Order extends BaseModel {
             if(user_id === 0){
                 productList = await order_list_collection.find({}).toArray();
             } else {
-                productList = await order_list_collection.find({ user_id: parseInt(user_id) }).toArray();
+                productList = await order_list_collection.find({ user_id: parseInt(user_id) },).toArray();
             }
             return productList;
         } catch(error){
@@ -72,9 +72,15 @@ class Order extends BaseModel {
             if(merchant_id === 0){
                 productList = await order_list_collection.find({}).toArray();
             } else {
-                productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id) }).toArray();
+                productList = await order_list_collection.findOne({merchant_frysto_id: parseInt(merchant_id) },{
+                    projection:{
+                        "status":1,
+                        "mode_of_payment":1,
+                        "total_price"
+                    }
+                });
             }
-            return productList;
+            return ({data:productList});
         } catch(error){
             console.log(error);
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
