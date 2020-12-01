@@ -106,7 +106,9 @@ class Order extends BaseModel {
                 productList = await order_list_collection.findOne({ order_id: parseInt(order_id) },
                                                                {
                         projection: {
-                            "product_list": 1
+                            "product_list": 1,
+                            "mode_of_payment":1,
+                            "total_price":1
                         }
                     });
             }
