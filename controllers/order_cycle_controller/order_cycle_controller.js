@@ -72,13 +72,7 @@ class Order extends BaseModel {
             if(merchant_id === 0){
                 productList = await order_list_collection.find({}).toArray();
             } else {
-                productList = await order_list_collection.findOne({merchant_frysto_id: parseInt(merchant_id) },{
-                    projection:{
-                        "status":1,
-                        "mode_of_payment":1,
-                        "total_price"
-                    }
-                });
+                productList = await order_list_collection.findOne({merchant_frysto_id: parseInt(merchant_id)}).toArray();
             }
             return ({data:productList});
         } catch(error){
