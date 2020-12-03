@@ -19,8 +19,7 @@ router.get("/product-list", async (req, res) => {
         let adminController = new Product_List();
         let merchant_frysto_id = req.query.merchant_frysto_id || 0;
         let response = await adminController.getProductList(merchant_frysto_id);
-//         res.send({ success : true, data: response, message: 'Master list successfully' });
-        res.send(response);
+        res.send({ success : true, data: response, message: 'Product list successfully' });
     } catch (error) {
         res.status(error.statusCode || 500).send({ success: false, message: error.message });
     }
