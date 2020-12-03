@@ -74,7 +74,7 @@ class Order extends BaseModel {
             } else {
                 productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id)}).toArray();
             }
-            return ({data:productList});
+            return ({order:productList});
         } catch(error){
             console.log(error);
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
