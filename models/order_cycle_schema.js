@@ -26,6 +26,31 @@ const OrderListSchema = {
 
         });
       },
+     ReturnOrderList: () => {
+        return Joi.object().keys({
+            order_id: Joi.number().integer(),
+            return_product_list:Joi.array().items(Joi.object({
+                item_product_id: Joi.number().integer(),
+                item_merchant_frysto_id: Joi.number().integer(),
+                item_english_name:Joi.string().required().trim().regex(regex.only_alphabets).label('english_name').error(()=> 'Invalid english_name'),
+                item_hindi_name:Joi.string().required().trim().regex(regex.only_alphabets).label('hindi_name').error(()=> 'Invalid hindi_name'),
+                item_price:Joi.number().integer(),
+                item_quantity:Joi.number().integer(),
+                item_mrp:Joi.number().integer(),
+                item_image_url:Joi.string().required().trim().label('item_image_url').error(()=> 'item_image_url'),
+                item_quantity_detail:Joi.string().required().trim().label('item_quantity_detail').error(()=> 'item_quantity_detail'),
+            })),
+            total_price:Joi.number().integer(),
+            return_total_price:Joi.number().integer(),
+            mode_of_payment:Joi.string().required().trim().regex(regex.only_alphabets).label('mode of payment').error(()=> 'mode of payment invalid'),
+           
+
+        });
+      },
+    
+    
+    
+    
     OrderStatus:()=>{
         return Joi.object().keys({
             order_id:Joi.number().integer(),
