@@ -49,6 +49,37 @@ class Order extends BaseModel {
             throw new CustomError(error.message, error.statusCode, 'addAddress'); 
         }
     }
+    async addReturnOrder(data){
+        try{
+            
+            let joi_validator = new BaseModel();
+            let validatedData = joi_validator.validateModelSchema(data, ordervalidator.ReturnOrderList());
+           
+            let order_collection = this.db.collection(collections.return_order_list);
+            let current_date = moment().utc().toDate();
+            
+            const payload = {
+                order_id:validatedData.order_id,
+                return_product_list:validatedData.return_product_list,
+                total_price:validatedData.total_price,
+                return_total_price:validatedData.return_total_price,
+                mode_of_payment:validatedData.mode_of_payment,
+                return_time:current_date,
+                
+                
+            };
+
+            await order_collection.insertOne(payload);
+            return payload;
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'Return order list'); 
+        }
+    }
+    
+    
+    
+    
 
     async getOrderByUserId(user_id){
         try{
