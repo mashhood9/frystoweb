@@ -13,6 +13,19 @@ router.post('/addorder', async (req, res) => {
         res.status(error.statusCode || 500).send(error.message);
     }
 });
+router.post('/addreturnorder', async (req, res) => {
+    try {
+        let order = new Order_Cycle();        
+        let response = await order.addReturnOrder(req.body);
+        res.send({success:true, response});
+    } catch (error) {
+        res.status(error.statusCode || 500).send(error.message);
+    }
+});
+
+
+
+
 
 router.get("/order/by_user_id", async (req, res) => {
     try {
