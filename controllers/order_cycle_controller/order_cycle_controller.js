@@ -4,6 +4,7 @@ const config = require('../../db/config').mongo_config;
 const collections = config.collections;
 const BaseModel = require('../../utilities/base_model');
 const FileUploader = require('../../utilities/file_uploader');
+const Razorpay = require('razorpay');
 const ordervalidator = require('../../models/order_cycle_schema');
 const moment = require('moment');
 
