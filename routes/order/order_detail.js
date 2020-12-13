@@ -4,7 +4,7 @@ var router = express.Router();
 let Order_Cycle = require('../../controllers/order_cycle_controller/order_cycle_controller');
 
 
-router.post('/addorder', async (req, res) => {
+router.post('/addorder-onlinepay', async (req, res) => {
     try {
         let  order = new Order_Cycle();        
         let response = await order.addOrderOnline(req.body);
