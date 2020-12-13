@@ -15,19 +15,34 @@ class Order extends BaseModel {
         this.db = mongoClient.getDb().db();
     }
 
-    async addOrder(data){
+   async addOrderOnline(data){
         try{
-            
             let joi_validator = new BaseModel();
             let validatedData = joi_validator.validateModelSchema(data, ordervalidator.OrderListAddSchema());
            
             let order_collection = this.db.collection(collections.order_list);
-            const order_id = await this.getNextUserIdValue();
+            let frysto_order_id = await this.getNextUserIdValue();
             let current_date = moment().utc().toDate();
-            const otp = Math.floor(1000 + Math.random() * 9000);
+            let rzp_id;
             
-            const payload = {
-                order_id:order_id,
+
+            var instance = new Razorpay({ key_id: 'rzp_test_puxdfjQjkOZfDF', key_secret: 'Vpen5niswQoihpdvN40QAQTC' })
+            var options = {
+                amount:((validatedData.total_price)*100 ),  // amount in the smallest currency unit
+                currency: "INR",
+                receipt: frysto_order_id.toString()
+              };
+              
+             await instance.orders.create(options, function(err, order) {
+                 console.log(order)
+                
+                rzp_id=order.id
+                console.log(rzp_id);
+                });
+
+             const payload = {
+                order_id:frysto_order_id,
+                razorpay_order_id:rzp_id,
                 user_id: validatedData.user_id,
                 merchant_frysto_id:validatedData.merchant_frysto_id,
                 user_id_address:validatedData.user_id_address,
@@ -38,15 +53,17 @@ class Order extends BaseModel {
                 mode_of_payment:validatedData.mode_of_payment,
                 delivery_time:validatedData.delivery_time,
                 order_time_date: current_date,
-                order_otp:otp,
                 
             };
 
             await order_collection.insertOne(payload);
-            return order_id;
+
+            
+          
+            return ({order_id:frysto_order_id, razorpay_id:rzp_id})
         } catch(error){
             console.log(error);
-            throw new CustomError(error.message, error.statusCode, 'addAddress'); 
+            throw new CustomError(error.message, error.statusCode, 'addOrder'); 
         }
     }
     async addReturnOrder(data){
