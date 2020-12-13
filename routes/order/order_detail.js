@@ -7,7 +7,7 @@ let Order_Cycle = require('../../controllers/order_cycle_controller/order_cycle_
 router.post('/addorder', async (req, res) => {
     try {
         let  order = new Order_Cycle();        
-        let response = await order.addOrder(req.body);
+        let response = await order.addOrderOnline(req.body);
         res.send({success:true, response});
     } catch (error) {
         res.status(error.statusCode || 500).send(error.message);
