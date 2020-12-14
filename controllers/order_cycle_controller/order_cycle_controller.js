@@ -54,6 +54,9 @@ class Order extends BaseModel {
                 mode_of_payment:validatedData.mode_of_payment,
                 delivery_time:validatedData.delivery_time,
                 order_time_date: current_date,
+                payment_id:'null',
+                payment_status:'order initiated',
+                
                 
             };
 
@@ -187,6 +190,31 @@ class Order extends BaseModel {
 
     
             throw new CustomError(error.message, error.statusCode, 'Not Accepted'); 
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'not Accepted'); 
+        }
+    }
+    
+    async orderonlinepaymentconfirmation(data){
+        try{
+            
+            let joi_validator = new BaseModel();
+            let validatedData = joi_validator.validateModelSchema(data, ordervalidator.OrderStatusConfirmation());
+           
+            let order_collection = this.db.collection(collections.order_list);
+            const find_order = await order_collection.findOne({
+                razorpay_order_id:validatedData.rzp_order_id
+            })
+           await if(find_order){
+                order_collection.findOneAndUpdate({razorpay_order_id:validatedData.rzp_order_id} , {$set:{payment_id:validatedData.payment_id, payment_status:validatedData.payment_status}})
+
+                return 'done';
+
+            }
+
+    
+            throw new CustomError(error.message, error.statusCode, 'payment not accepted'); 
         } catch(error){
             console.log(error);
             throw new CustomError(error.message, error.statusCode, 'not Accepted'); 
