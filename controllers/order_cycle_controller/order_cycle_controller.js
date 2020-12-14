@@ -25,6 +25,7 @@ class Order extends BaseModel {
             let frysto_order_id = await this.getNextUserIdValue();
             let current_date = moment().utc().toDate();
             let rzp_id;
+            let otp = Math.floor(1000 + Math.random() * 9000);
             
 
             var instance = new Razorpay({ key_id: 'rzp_test_iB0O6ZbG60hFox', key_secret: 'h6wJkCrlmPXnpYn9H6B28i8S' })
@@ -56,6 +57,7 @@ class Order extends BaseModel {
                 order_time_date: current_date,
                 payment_id:'null',
                 payment_status:'order initiated',
+                order_otp:otp,
                 
                 
             };
