@@ -206,7 +206,7 @@ class Order extends BaseModel {
             const find_order = await order_collection.findOne({
                 razorpay_order_id:validatedData.rzp_order_id
             })
-           await if(find_order){
+           if(find_order){
                 order_collection.findOneAndUpdate({razorpay_order_id:validatedData.rzp_order_id} , {$set:{payment_id:validatedData.payment_id, payment_status:validatedData.payment_status}})
 
                 return 'done';
