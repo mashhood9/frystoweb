@@ -27,7 +27,7 @@ class Order extends BaseModel {
             let rzp_id;
             
 
-            var instance = new Razorpay({ key_id: 'rzp_test_puxdfjQjkOZfDF', key_secret: 'Vpen5niswQoihpdvN40QAQTC' })
+            var instance = new Razorpay({ key_id: 'rzp_live_Kl50UyIZdd9UKg', key_secret: '99cuJLHxwzJHgFHWQhsC7yOl' })
             var options = {
                 amount:((validatedData.total_price)*100 ),  // amount in the smallest currency unit
                 currency: "INR",
