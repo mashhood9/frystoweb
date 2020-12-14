@@ -79,6 +79,18 @@ router.post('/order/order_status', async (req, res) => {
     }
 });
 
+router.post('/online-order/pyment-confirm', async (req, res) => {
+    try {
+        let order = new Order_Cycle();        
+        let response = await order.orderonlinepaymentconfirmation(req.body);
+        res.send({success:true, response});
+    } catch (error) {
+        res.status(error.statusCode || 500).send(error.message);
+    }
+});
+
+
+
 
 router.get('/get-otp', async (req, res) => {
     try {
