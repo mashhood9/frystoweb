@@ -49,6 +49,16 @@ const OrderListSchema = {
       },
     
     
+    OrderStatusConfirmation:()=>{
+        return Joi.object().keys({
+            payment_id: Joi.string().required().trim().label('order_status').error(()=> 'Invalid order_status'),
+            rzp_order_id: Joi.string().required().trim().label('order_status').error(()=> 'Invalid order_status'),
+            payment_status: Joi.string().required().trim().label('order_status').error(()=> 'Invalid order_status'),
+
+        });
+    },
+    
+    
     
     
     OrderStatus:()=>{
