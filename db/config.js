@@ -10,7 +10,7 @@ let mongo_config = {
         connectTimeoutMS: 3000
     },
     collections: {
-        user: "users",
+        users: "users",
         user_counters: "user_counters",
         merchant_counters: "merchant_counters",
         users_role: "user_role_master",
