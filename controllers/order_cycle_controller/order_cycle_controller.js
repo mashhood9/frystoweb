@@ -1,6 +1,7 @@
 const mongoClient = require('../../db/mongo_connection');
 const log_collections = require('../../db/config').mongo_config.log_collections;
 const config = require('../../db/config').mongo_config;
+var request = require('request');
 const collections = config.collections;
 const BaseModel = require('../../utilities/base_model');
 const FileUploader = require('../../utilities/file_uploader');
