@@ -29,7 +29,7 @@ const OrderListSchema = {
      ReturnOrderList: () => {
         return Joi.object().keys({
             order_id: Joi.number().integer(),
-            return_product_list:Joi.array().items(Joi.object({
+            return_product_list:Joi.array().required().items(Joi.object({
                 item_product_id: Joi.number().integer(),
                 item_merchant_frysto_id: Joi.number().integer(),
                 item_english_name:Joi.string().trim().regex(regex.only_alphabets).label('english_name').error(()=> 'Invalid english_name'),
