@@ -197,7 +197,7 @@ class Order extends BaseModel {
     
      async getReturnOrderListByUserId(order_id){
         try{
-            const order_list_collection = this.db.collection(collections.order_list);
+            const order_list_collection = this.db.collection(collections.return_order_list);
             let productList;
             if(order_id === 0){
                 productList = await order_list_collection.find({}).toArray();
