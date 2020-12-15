@@ -232,8 +232,9 @@ class Order extends BaseModel {
                  let url = 'https://rzp_test_iB0O6ZbG60hFox:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/'+ pymnt_id ;
                  request.get(url, function (error, response, body) {
                  console.log('Response:', body);
+                 const obj = JSON.parse(body);
                  console.log(body.amount);
-                 paid_after_offer=(body.amount)/100;
+                 paid_after_offer=(obj.amount)/100;
                  console.log('mashhood');
                  console.log(paid_after_offer)
                    });
