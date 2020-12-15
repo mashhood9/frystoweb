@@ -219,7 +219,7 @@ class Order extends BaseModel {
             
             let joi_validator = new BaseModel();
             let validatedData = joi_validator.validateModelSchema(data, ordervalidator.OrderStatusConfirmation());
-            let paid_after_offer;
+            let paid_after_offer=0;
            
             let order_collection = this.db.collection(collections.order_list);
             const find_order = await order_collection.findOne({
