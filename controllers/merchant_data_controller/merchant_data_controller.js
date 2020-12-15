@@ -250,7 +250,7 @@ class merchant_data_details extends BaseModel {
 
 async getUserByUserId(UserId){
     try{
-        const order_list_collection = this.db.collection(collections.user);
+        const order_list_collection = this.db.collection(collections.users);
         let Userdata;
         if(UserId){
         
