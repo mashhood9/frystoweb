@@ -23,10 +23,14 @@ class Order extends BaseModel {
             let validatedData = joi_validator.validateModelSchema(data, ordervalidator.OrderListAddSchema());
            
             let order_collection = this.db.collection(collections.order_list);
+            let merchant_collection = this.db.collection(collections.merchant_data_detail);
+            let user_collection = this.db.collection(collections.users);
             let frysto_order_id = await this.getNextUserIdValue();
             let current_date = moment().utc().toDate();
             let rzp_id;
             let otp = Math.floor(1000 + Math.random() * 9000);
+            let merchant_detail;
+            let user_detail;
             
 
             var instance = new Razorpay({ key_id: 'rzp_test_iB0O6ZbG60hFox', key_secret: 'h6wJkCrlmPXnpYn9H6B28i8S' })
@@ -42,6 +46,8 @@ class Order extends BaseModel {
                 rzp_id=order.id
                 console.log(rzp_id);
                 });
+             merchant_detail = await merchant_collection.findOne({merchant_frysto_id:validatedData.merchant_frysto_id});
+             console.log(merchant_detail);
 
              const payload = {
                 order_id:frysto_order_id,
