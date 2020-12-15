@@ -60,7 +60,7 @@ class Order extends BaseModel {
                 payment_status:'order initiated',
                 order_otp:otp,
                 return_product_list:'null',
-                return_total_price:'null',
+                return_total_price:0,
                 return_time:'null',
                 paid_applying_offer:0,
                 
@@ -178,7 +178,9 @@ class Order extends BaseModel {
                         projection: {
                             "product_list": 1,
                             "mode_of_payment":1,
-                            "total_price":1
+                            "total_price":1,
+                            "return_product_list":1,
+                            "return_total_price":1,
                         }
                     });
             }
