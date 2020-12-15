@@ -60,8 +60,8 @@ class Order extends BaseModel {
                 order_otp:otp,
                 return_product_list:'null',
                 return_total_price:'null',
-                return_time:'null'
-                
+                return_time:'null',
+                paid_applying_order:'null'
                 
                 
             };
@@ -224,6 +224,15 @@ class Order extends BaseModel {
                 razorpay_order_id:validatedData.rzp_order_id
             })
            if(find_order){
+               var request = require('request');
+               request({
+                method: 'POST',
+                url: 'https://rzp_test_iB0O6ZbG60hFox:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/validatedData.payment_id',},
+                function (error, response, body) {
+                console.log('Status:', response.statusCode);
+                console.log('Headers:', JSON.stringify(response.headers));
+                console.log('Response:', body);
+                 });
                 order_collection.findOneAndUpdate({razorpay_order_id:validatedData.rzp_order_id} , {$set:{payment_id:validatedData.payment_id, payment_status:validatedData.payment_status}})
 
                 return 'done';
