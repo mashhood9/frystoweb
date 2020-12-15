@@ -62,7 +62,7 @@ class Order extends BaseModel {
                 return_product_list:'null',
                 return_total_price:'null',
                 return_time:'null',
-                paid_applying_offer:0
+                paid_applying_offer:'null',
                 
                 
             };
@@ -219,7 +219,7 @@ class Order extends BaseModel {
             
             let joi_validator = new BaseModel();
             let validatedData = joi_validator.validateModelSchema(data, ordervalidator.OrderStatusConfirmation());
-            let paid_after_offer=0;
+            let paid_after_offer;
            
             let order_collection = this.db.collection(collections.order_list);
             const find_order = await order_collection.findOne({
@@ -234,7 +234,7 @@ class Order extends BaseModel {
                  console.log('Response:', body);
                  const obj = JSON.parse(body);
                  console.log(body.amount);
-                 paid_after_offer=(obj.amount)/100;
+                 paid_after_offer=((obj.amount)/100).toString();
                  console.log('mashhood');
                  console.log(paid_after_offer)
                    });
