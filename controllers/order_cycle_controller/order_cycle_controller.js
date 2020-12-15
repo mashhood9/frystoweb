@@ -58,6 +58,10 @@ class Order extends BaseModel {
                 payment_id:'null',
                 payment_status:'order initiated',
                 order_otp:otp,
+                return_product_list:'null',
+                return_total_price:'null',
+                return_time:'null'
+                
                 
                 
             };
@@ -78,10 +82,21 @@ class Order extends BaseModel {
             let joi_validator = new BaseModel();
             let validatedData = joi_validator.validateModelSchema(data, ordervalidator.ReturnOrderList());
            
-            let order_collection = this.db.collection(collections.return_order_list);
+            let return_order_collection = this.db.collection(collections.return_order_list);
+            let order_collection = this.db.collection(collections.order_list);
             let current_date = moment().utc().toDate();
             
-            const payload = {
+            
+             const find_order = await order_collection.findOne({
+                order_id:validatedData.order_id
+            })
+            if(find_order){
+                order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_product_list:validatedData.return_product_list, return_total_price:validatedData.return_total_price, return_time:current_date}})
+
+                return 'done';
+
+            }
+             const payload = {
                 order_id:validatedData.order_id,
                 return_product_list:validatedData.return_product_list,
                 total_price:validatedData.total_price,
@@ -92,7 +107,7 @@ class Order extends BaseModel {
                 
             };
 
-            await order_collection.insertOne(payload);
+            await return_order_collection.insertOne(payload);
             return payload;
         } catch(error){
             console.log(error);
