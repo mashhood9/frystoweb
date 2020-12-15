@@ -224,13 +224,11 @@ class Order extends BaseModel {
                 razorpay_order_id:validatedData.rzp_order_id
             })
            if(find_order){
-               var request = require('request');
-               request({
-                method: 'POST',
-                url: 'https://rzp_test_iB0O6ZbG60hFox:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/validatedData.payment_id',},
-               function (error, response, body) {
-                console.log('Response:', body);
-                });
+
+                 request('https://rzp_test_iB0O6ZbG60hFox:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/${validatedData.payment_id}', function (error, response, body) {
+                 console.log('Response:', body);
+                 console.log('mashhood');
+                   });
                 order_collection.findOneAndUpdate({razorpay_order_id:validatedData.rzp_order_id} , {$set:{payment_id:validatedData.payment_id, payment_status:validatedData.payment_status}})
 
                 return 'done';
