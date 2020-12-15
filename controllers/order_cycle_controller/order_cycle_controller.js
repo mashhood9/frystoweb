@@ -62,7 +62,7 @@ class Order extends BaseModel {
                 return_product_list:'null',
                 return_total_price:0,
                 return_time:'null',
-                paid_applying_offer:0,
+                paid_applying_offer:validatedData.total_price,
                 
                 
             };
