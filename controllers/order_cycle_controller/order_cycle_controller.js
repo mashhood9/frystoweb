@@ -227,12 +227,14 @@ class Order extends BaseModel {
            if(find_order){
                
                  let pymnt_id=validatedData.payment_id
+                 let paid_after_offer;
                  let url = 'https://rzp_test_iB0O6ZbG60hFox:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/'+ pymnt_id ;
                  request.get(url, function (error, response, body) {
                  console.log('Response:', body);
+                 paid_after_offer=body.id;
                  console.log('mashhood');
                    });
-                order_collection.findOneAndUpdate({razorpay_order_id:validatedData.rzp_order_id} , {$set:{payment_id:validatedData.payment_id, payment_status:validatedData.payment_status}})
+                order_collection.findOneAndUpdate({razorpay_order_id:validatedData.rzp_order_id} , {$set:{payment_id:validatedData.payment_id, payment_status:validatedData.payment_status, paid_applying_offer:paid_after_offer}})
 
                 return 'done';
 
