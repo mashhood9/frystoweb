@@ -231,7 +231,7 @@ class Order extends BaseModel {
                  let url = 'https://rzp_test_iB0O6ZbG60hFox:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/'+ pymnt_id ;
                  request.get(url, function (error, response, body) {
                  console.log('Response:', body);
-                 paid_after_offer=(body.ammount)/100;
+                 paid_after_offer=(body.amount)/100;
                  console.log('mashhood');
                    });
                 order_collection.findOneAndUpdate({razorpay_order_id:validatedData.rzp_order_id} , {$set:{payment_id:validatedData.payment_id, payment_status:validatedData.payment_status, paid_applying_offer:paid_after_offer}})
