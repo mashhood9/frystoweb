@@ -234,7 +234,7 @@ class Order extends BaseModel {
                  console.log('Response:', body);
                  const obj = JSON.parse(body);
                  console.log(body.amount);
-                 paid_after_offer=((obj.amount)/100);
+                 paid_after_offer=((obj.amount));
                  console.log('mashhood');
                  console.log(paid_after_offer)
                   order_collection.findOneAndUpdate({razorpay_order_id:validatedData.rzp_order_id} , {$set:{payment_id:validatedData.payment_id, paid_applying_offer:paid_after_offer, payment_status:validatedData.payment_status, }})
