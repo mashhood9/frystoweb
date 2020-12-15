@@ -127,9 +127,11 @@ class Order extends BaseModel {
             if(user_id === 0){
                 productList = await order_list_collection.find({}).toArray();
             } else {
-                productList = await order_list_collection.find({ user_id: parseInt(user_id) }, 
+                productList = await order_list_collection.find({ user_id: parseInt(user_id) },
+                                                               {
                        projection: {
                             "return_order_list":1,
+                           }
                         }).toArray();
             }
             return productList;
