@@ -191,6 +191,30 @@ class Order extends BaseModel {
         }
     }
     
+     async getReturnOrderListByUserId(order_id){
+        try{
+            const order_list_collection = this.db.collection(collections.order_list);
+            let productList;
+            if(order_id === 0){
+                productList = await order_list_collection.find({}).toArray();
+            } else {
+                productList = await order_list_collection.findOne({ order_id: parseInt(order_id) },
+                                                               {
+                        projection: {
+                            "return_product_list":1,
+                            "mode_of_payment":1,
+                            "total_price":1,
+                            "return_total_price":1,
+                        }
+                    });
+            }
+            return productList;
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
+    
      async orderstatusbyMerchant(data){
         try{
             
