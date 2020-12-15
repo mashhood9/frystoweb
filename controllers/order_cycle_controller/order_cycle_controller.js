@@ -92,7 +92,7 @@ class Order extends BaseModel {
                 order_id:validatedData.order_id
             })
             if(find_order){
-                order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_product_list:validatedData.return_product_list, return_total_price:validatedData.return_total_price, return_time:current_date}})
+                order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_total_price:validatedData.return_total_price, return_time:current_date}})
 
                 return 'done';
 
