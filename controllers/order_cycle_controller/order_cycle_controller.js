@@ -225,8 +225,9 @@ class Order extends BaseModel {
                 razorpay_order_id:validatedData.rzp_order_id
             })
            if(find_order){
-
-                 request('https://rzp_test_iB0O6ZbG60hFox:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/${validatedData.payment_id}', function (error, response, body) {
+               
+                let payment_id=validatedData.payment_id
+                 request.get('https://rzp_test_iB0O6ZbG60hFox:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/${payment_id}', function (error, response, body) {
                  console.log('Response:', body);
                  console.log('mashhood');
                    });
