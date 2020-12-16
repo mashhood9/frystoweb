@@ -48,10 +48,10 @@ class Order extends BaseModel {
                 });
              merchant_detail = await merchant_collection.findOne({merchant_frysto_id:validatedData.merchant_frysto_id});
              console.log(merchant_detail);
-             const merchant_obj = JSON.parse(merchant_detail);
+             const merchant_obj = merchant_detail;
              let mchnt_name = merchant_obj.shop_name
              user_detail = await user_collection.findOne({user_id:validatedData.user_id});
-             const user_obj = JSON.parse(user_detail);
+             const user_obj = user_detail;
              let usr_name = user_obj.first_name
              let usr_mobile_number= user_obj.mobile_number
 
