@@ -120,7 +120,7 @@ async signin(user_credentials) {
                     is_deleted:false,
                     })
                 let userdata;
-                const order_list_collection = this.db.collection(collections.user);
+                const order_list_collection = this.db.collection(collections.users);
                 if(otp_data.otp_number==authData.data.otpId){
                userdata = await order_list_collection.findOne({ mobile_number: parseInt(authData.data.mobile_number) },
                 {
@@ -153,7 +153,7 @@ async signin(user_credentials) {
             let decrypted_token = await crypto.decrypt(user_verification_data.token);
             let authData = await authToken.verifyToken(decrypted_token);
             if (authData) {
-                let result = await this.db.collection(collections.user).findOne({
+                let result = await this.db.collection(collections.users).findOne({
                     user_id: authData.data.user_id,
                     is_deleted: false,
                     is_email_verified : true
@@ -179,7 +179,7 @@ async signin(user_credentials) {
     async verifyMobileNumber(body) {
         try { 
             // Get email token
-            let user_collection = this.db.collection(collections.user);
+            let user_collection = this.db.collection(collections.users);
             let mobile_verification_data = await user_collection.findOne({
                 mobile_otp : body.mobile_otp
             },{
@@ -198,7 +198,7 @@ async signin(user_credentials) {
             //     return false;
             // }
 
-            let result = await this.db.collection(collections.user).updateOne({
+            let result = await this.db.collection(collections.users).updateOne({
                 mobile_otp: body.mobile_otp
             }, {
                     $unset: {
@@ -240,7 +240,7 @@ async signin(user_credentials) {
             // Validate data
             let validatedData = await this.validateModelSchema(email_data, validatorSchema.check_duplicate_email());
             
-            let user_collection = this.db.collection(collections.user);
+            let user_collection = this.db.collection(collections.users);
             let user_data = await user_collection.findOne({
                 mobile_number: validatedData.mobile_number
             });
