@@ -20,7 +20,7 @@ async signin(user_credentials) {
             let signin_data = await this.validateModelSchema(user_credentials, validatorSchema.signin());
             const last_login_time = moment().utc().toDate();
             const last_login_type = 'normal';
-            let collection = this.db.collection(collections.user);
+            let collection = this.db.collection(collections.users);
             let result = await collection.findOne({
                 mobile_number: signin_data.mobile_number,
                 is_deleted : false
