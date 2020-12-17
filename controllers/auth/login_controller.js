@@ -115,7 +115,7 @@ async signin(user_credentials) {
             let decrypted_token= await crypto.decrypt(otp_data.otp_token);
             let authData= await authToken.verifyToken(decrypted_token);
             if(authData){
-                let result=await this.db.collection(collections.user).findOne({
+                let result=await this.db.collection(collections.users).findOne({
                     mobile_number:authData.data.mobile_number,
                     is_deleted:false,
                     })
