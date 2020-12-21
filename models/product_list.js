@@ -20,8 +20,8 @@ const ProductListSchema = {
      UpdateProductData: () => {
         return Joi.object().keys({
             product_id: Joi.number().integer().required(),
-            product_price: Joi.number().required(),
-            product_mrp: Joi.number().required(),
+            product_price: Joi.number().integer().required(),
+            product_mrp:  Joi.number().integer().required(),
         })
       }
 };
