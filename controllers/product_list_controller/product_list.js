@@ -64,6 +64,36 @@ class product_list_details extends BaseModel {
         );
         return sequenceDocument.value.sequence_value;
     }
+    
+    async price_update(data){
+        try{
+            
+            let joi_validator = new BaseModel();
+            let validatedData = joi_validator.validateModelSchema(data, datavalidator.UpdateProductData());
+            let current_date = moment().utc().toDate();
+            let product_list_collection = this.db.collection(collections.product_list);
+
+            const find_product = await product_list_collection.findOne({
+                product_id:validatedData.product_id
+            })
+
+            if(find_product){
+
+                await product_list_collection.findOneAndUpdate({product_id:validatedData.product_id}, {$set:{product_mrp:validatedData.product_mrp, product_price:validatedData.product_price}})
+
+                  return 'price_updated';
+
+            };
+        
+            throw new CustomError(error.message, error.statusCode, 'product id not found'); 
+            
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'add_product_detail'); 
+        }
+    }
+    
+    
 
     async getProductList(merchant_frysto_id){
         try{
