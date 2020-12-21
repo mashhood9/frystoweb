@@ -25,6 +25,16 @@ router.get("/product-list", async (req, res) => {
     }
   });
 
+router.post('/update_product_price', async (req, res) => {
+    try {
+        let order = new Product_List();        
+        let response = await order.price_update(req.body);
+        res.send({success:true, response});
+    } catch (error) {
+        res.status(error.statusCode || 500).send({error:error.message});
+    }
+});
+
 router.get("/customer_app/product-list", async (req, res) => {
     try {
         let adminController = new Product_List();
