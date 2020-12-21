@@ -40,7 +40,7 @@ class Signup {
            
             let current_date = moment().utc().toDate();
             // Check user
-            let user_collection = this.db.collection(collections.user);
+            let user_collection = this.db.collection(collections.users);
             let user_data = await user_collection.findOne({$or:[{
                 mobile_number : user_signup_data.mobile_number
             }, {
@@ -102,7 +102,7 @@ class Signup {
 
 
     async getUser(email) {
-        return await this.db.collection(collections.user).findOne({ email })
+        return await this.db.collection(collections.users).findOne({ email })
     }
 
     async generateAuthToken(email) {
@@ -140,7 +140,7 @@ class Signup {
 
     async getOTP(data) {
         try {
-            const result = await this.db.collection(collections.user).findOne({ mobile_number: parseInt(data.mobile_number)}, {mobile_otp: 1, _id: -1});
+            const result = await this.db.collection(collections.users).findOne({ mobile_number: parseInt(data.mobile_number)}, {mobile_otp: 1, _id: -1});
             return result;
         } catch (error) {
             throw error;
