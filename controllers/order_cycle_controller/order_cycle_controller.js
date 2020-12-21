@@ -93,6 +93,87 @@ class Order extends BaseModel {
             throw new CustomError(error.message, error.statusCode, 'addOrder'); 
         }
     }
+    
+    async addOrderCOD(data){
+        try{
+            let joi_validator = new BaseModel();
+            let validatedData = joi_validator.validateModelSchema(data, ordervalidator.OrderListAddSchema());
+           
+            let order_collection = this.db.collection(collections.order_list);
+            let merchant_collection = this.db.collection(collections.merchant_data_detail);
+            let user_collection = this.db.collection(collections.users);
+            let frysto_order_id = await this.getNextUserIdValue();
+            let current_date = moment().utc().toDate();
+            let otp = Math.floor(1000 + Math.random() * 9000);
+            let merchant_detail;
+            let user_detail;
+            
+
+//             var instance = new Razorpay({ key_id: 'rzp_test_iB0O6ZbG60hFox', key_secret: 'h6wJkCrlmPXnpYn9H6B28i8S' })
+//             var options = {
+//                 amount:((validatedData.total_price) ),  // amount in the smallest currency unit
+//                 currency: "INR",
+//                 receipt: frysto_order_id.toString()
+//               };
+              
+//              await instance.orders.create(options, function(err, order) {
+//                  console.log(order)
+                
+//                 rzp_id=order.id
+//                 console.log(rzp_id);
+//                 });
+             merchant_detail = await merchant_collection.findOne({merchant_frysto_id:validatedData.merchant_frysto_id});
+             console.log(merchant_detail);
+             const merchant_obj = merchant_detail;
+             let mchnt_name = merchant_obj.shop_name
+             user_detail = await user_collection.findOne({user_id:validatedData.user_id});
+             const user_obj = user_detail;
+             let usr_name = user_obj.first_name
+             let usr_mobile_number= user_obj.mobile_number
+
+             const payload = {
+                order_id:frysto_order_id,
+                razorpay_order_id:'COD',
+                user_id: validatedData.user_id,
+                merchant_frysto_id:validatedData.merchant_frysto_id,
+                user_id_address:validatedData.user_id_address,
+                product_list:validatedData.product_list,
+                product_description:validatedData.product_description,
+                total_price:validatedData.total_price,
+                status:validatedData.status,
+                mode_of_payment:validatedData.mode_of_payment,
+                delivery_time:validatedData.delivery_time,
+                order_time_date: current_date,
+                payment_id:'null',
+                payment_status:'on Delivery',
+                order_otp:otp,
+                return_product_list:'null',
+                return_total_price:0,
+                return_time:'null',
+                paid_applying_offer:validatedData.total_price,
+                shop_name:mchnt_name,
+                user_mobile_number:usr_mobile_number,
+                user_name:usr_name,
+               
+                
+                
+            };
+
+            await order_collection.insertOne(payload);
+
+            
+          
+            return ({order_id:frysto_order_id})
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'addOrder'); 
+        }
+    }
+    
+    
+    
+    
+    
     async addReturnOrder(data){
         try{
             
