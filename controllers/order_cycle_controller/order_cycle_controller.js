@@ -35,7 +35,7 @@ class Order extends BaseModel {
 
             var instance = new Razorpay({ key_id: 'rzp_test_iB0O6ZbG60hFox', key_secret: 'h6wJkCrlmPXnpYn9H6B28i8S' })
             var options = {
-                amount:((validatedData.total_price)*100 ),  // amount in the smallest currency unit
+                amount:((validatedData.total_price) ),  // amount in the smallest currency unit
                 currency: "INR",
                 receipt: frysto_order_id.toString()
               };
