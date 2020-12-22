@@ -319,6 +319,20 @@ async getUserByUserId(UserId){
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
         }
     }
+    
+        async getMasterProductList(merchant_id){
+        try{
+            const order_list_collection = this.db.collection(collections.master_product_list);
+            let productList;
+            if(merchant_id === 0){
+                productList = await order_list_collection.find({}).toArray();
+            } 
+            return productList;
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
 
     async getNextUserIdValue() {
         let collection = this.db.collection(collections.merchant_counters);
