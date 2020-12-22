@@ -23,7 +23,8 @@ let mongo_config = {
         merchant_user:"merchant_user",
         merchant_data_detail:"merchant_data_detail",
         order_list:"order_list",
-        return_order_list:"return_order_list"
+        return_order_list:"return_order_list",
+        master_product_list:"master_product_list"
 
     }
 }
