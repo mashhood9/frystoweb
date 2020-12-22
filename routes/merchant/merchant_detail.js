@@ -61,6 +61,20 @@ router.get("/list/by_lat_lang", async (req, res) => {
     }
   });
 
+  router.get("/merchant/merchant_id", async (req, res) => {
+    try {
+        let adminController = new Merchant_Data();
+        let MerchantId = req.query.merchant_frysto_id || 0;
+        let response = await adminController.getMerchantByMerchantId(MerchantId);
+        res.send({ success : true, data: response, message: 'Use data successfully' });
+    } catch (error) {
+        res.status(error.statusCode || 500).send({ success: false, message: error.message });
+    }
+  });
+
+
+
+
   router.get("/order/by_merchant_id", async (req, res) => {
     try {
         let adminController = new Order_Cycle();
