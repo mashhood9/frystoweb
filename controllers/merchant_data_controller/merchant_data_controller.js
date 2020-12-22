@@ -276,6 +276,33 @@ async getUserByUserId(UserId){
         throw new CustomError(error.message, error.statusCode, 'userdata'); 
     }
 }
+    
+    
+    async getMerchantByMerchantId(MerchantId){
+    try{
+        const merchant_list_collection = this.db.collection(collections.merchant_data_detail);
+        let Userdata;
+        if(MerchantId){
+        
+            Userdata = await merchant_list_collection.findOne({ merchant_frysto_id: parseInt(MerchantId) },
+            {
+                    
+                projection: {
+                    "shop_name":1,
+                    "address":1
+
+                    
+                }
+
+             } );
+        }
+        return ({shop_name:Userdata.shop_name, shop_address:Userdata.address})
+    } catch(error){
+        console.log(error);
+        throw new CustomError(error.message, error.statusCode, 'userdata'); 
+    }
+}
+
 
     async getOrderByMerchantId(merchant_id){
         try{
