@@ -72,6 +72,17 @@ router.get("/list/by_lat_lang", async (req, res) => {
     }
   });
 
+router.get("/master/master_product_list", async (req, res) => {
+    try {
+        let adminController = new Merchant_Data();
+        let MerchantId = req.query.merchant_frysto_id || 0;
+        let response = await adminController.getMasterProductList(MerchantId);
+        res.send({ success : true, merchant_data: response, message: 'Merchant data successfully' });
+    } catch (error) {
+        res.status(error.statusCode || 500).send({ success: false, message: error.message });
+    }
+  });
+
 
 
 
