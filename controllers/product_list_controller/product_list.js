@@ -94,6 +94,31 @@ class product_list_details extends BaseModel {
     }
     
     
+    async onboard_list(data){
+        try{
+            
+            let joi_validator = new BaseModel();
+            let validatedData = joi_validator.validateModelSchema(data, datavalidator.OnboardingProductData());
+            let current_date = moment().utc().toDate();
+            let product_list_collection = this.db.collection(collections.onboard_product_list);
+            
+            const payload ={
+                onboard_product_name:validatedData.master_product_name,
+                onboard_product_image_url:validatedData.master_product_image,
+                onboard_product_quantity_detail: validatedData.master_product_detail,
+                onboard_product_mrp:validatedData.master_product_mrp
+            };
+            
+            await product_list_collection.insertOne(payload); 
+            
+            
+            return 'product_onboarded';
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'add_product_detail'); 
+        }
+    }
+    
 
     async getProductList(merchant_frysto_id){
         try{
