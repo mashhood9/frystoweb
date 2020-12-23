@@ -14,6 +14,16 @@ router.post('/add_product_list_detail', async (req, res) => {
     }
 });
 
+router.post('/add_onboard_list', async (req, res) => {
+    try {
+        let order = new Product_List();        
+        let response = await order.onboard_list(req.body);
+        res.send({success:true, response});
+    } catch (error) {
+        res.status(error.statusCode || 500).send({error:error.message});
+    }
+});
+
 router.get("/product-list", async (req, res) => {
     try {
         let adminController = new Product_List();
