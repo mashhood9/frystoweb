@@ -32,8 +32,8 @@ const OrderListSchema = {
             return_product_list:Joi.array().required().items(Joi.object({
                 item_product_id: Joi.number().integer(),
                 item_merchant_frysto_id: Joi.number().integer(),
-                item_english_name:Joi.string().trim().regex().label('english_name').error(()=> 'Invalid english_name'),
-                item_hindi_name:Joi.string().required().trim().regex().label('hindi_name').error(()=> 'Invalid hindi_name'),
+                item_english_name:Joi.string().label('english_name').error(()=> 'Invalid english_name'),
+                item_hindi_name:Joi.string().required().label('hindi_name').error(()=> 'Invalid hindi_name'),
                 item_price:Joi.number().integer(),
                 item_quantity:Joi.number().integer(),
                 item_mrp:Joi.number().integer(),
