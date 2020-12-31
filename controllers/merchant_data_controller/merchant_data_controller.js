@@ -101,7 +101,7 @@ class merchant_data_details extends BaseModel {
 
                   return token;
 
-          } 
+          } return new CustomError({error_message:error.message, error_statusCode:error.statusCode, meesage:'merchant does not exist'}); 
       }catch(error){
             console.log('Sign_in',error);
             return new CustomError({error_message:error.message, error_statusCode:error.statusCode, meesage:'merchant does not exist'}); 
