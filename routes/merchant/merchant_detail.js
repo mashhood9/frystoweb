@@ -14,16 +14,14 @@ router.post('/add_merchant_detail', async (req, res) => {
     }
 });
 
-router.post('/merchant_signin', async(req,res)=> {
-    try{
+router.post('/signin', async (req, res) => {
+    try {
         let login = new Merchant_Data();
-        let response=await login.merchant_authentication(req.body);
-        res.status(200).send({ success: true, token: response, message: 'Success', statusCode : 200 });
-
-    }catch{
+        let response = await login.merchant_authentication(req.body);
+         res.status(200).send({ success: true, token: response, message: 'Success', statusCode : 200 });
+    } catch (error) { 
         res.status(error.statusCode || 500).send({ success: false, message: error.message, statusCode: error.statusCode || 500});
     }
-
 });
 
 router.post('/merchant_signin_verify', async (req, res) => {
