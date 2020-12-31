@@ -14,7 +14,7 @@ router.post('/add_merchant_detail', async (req, res) => {
     }
 });
 
-router.post('/signin', async (req, res) => {
+router.post('/merchant_signin', async (req, res) => {
     try {
         let login = new Merchant_Data();
         let response = await login.merchant_authentication(req.body);
