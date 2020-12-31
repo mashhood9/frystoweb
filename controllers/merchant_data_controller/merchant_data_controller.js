@@ -202,6 +202,44 @@ class merchant_data_details extends BaseModel {
         }
     }
 
+    async merchant_query(data){
+        try{
+            
+            let joi_validator = new BaseModel();
+            let validatedData = joi_validator.validateModelSchema(data, datavalidator.merchant_query());
+            let current_date = moment().utc().toDate();
+            let merchant_data_collection = this.db.collection(collections.merchant_query);
+            
+           
+
+            const merchant_frysto_id = await this.getNextUserIdValue();
+            
+            const payload = {
+                merchant_frysto_id:validatedData.merchant_frysto_id,
+                product_name: validatedData.product_name,
+                product_mrp:validatedData.product_mrp,
+                product_price:validatedData.product_price,
+                query_status:"Pending",
+                query_time: current_date
+
+            };
+        
+
+           
+
+            await merchant_data_collection.insertOne(payload);
+            return payload;
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'add_merchant_detail'); 
+        }
+    }
+
+
+
+
+
+
     async getListByPosition(user_latitude, user_longitude){
         try{
             const merchant_list = this.db.collection(collections.merchant_data_detail);

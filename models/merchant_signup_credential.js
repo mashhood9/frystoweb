@@ -71,6 +71,14 @@ const MerchantcredentialsSchema = {
         mobile_number: Joi.number().required().label('Mobile Number').error(()=> 'Invalid Mobile Number'),
       })
     },
+    merchant_query: () => {
+      return Joi.object().keys({
+        merchant_frysto_id: Joi.number().integer().required(),
+        product_name: Joi.string().trim().required().label('merchant_name').error(()=> 'Invalid merchant_name'),
+        product_mrp: Joi.number().integer().required(),
+        product_price: Joi.number().integer().required(),
+      })
+    },
 };
 
 module.exports = MerchantcredentialsSchema;

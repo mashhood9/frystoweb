@@ -14,6 +14,17 @@ router.post('/add_merchant_detail', async (req, res) => {
     }
 });
 
+router.post('/merchant_query', async (req, res) => {
+    try {
+        let order = new Merchant_Data();        
+        let response = await order.merchant_query(req.body);
+        res.send({success:true, response});
+    } catch (error) {
+        res.status(error.statusCode || 500).send({error:error.message});
+    }
+});
+
+
 router.post('/merchant_login', async (req, res) => {
     try {
         let login = new Merchant_Data();
