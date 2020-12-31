@@ -30,11 +30,7 @@ class merchant_data_details extends BaseModel {
           let collection = this.db.collection(collections.merchant_data_detail);
           let result = await collection.findOne({
               mobile_number: signin_data.mobile_number,
-          }, {
-                  projection: {
-                     "mobile_number":1
-                  }
-              });
+          });
           if (result) {
              // if (!result.is_mobile_verified) {
                //   throw new CustomError('Mobile not verified', 400, 'signin');
