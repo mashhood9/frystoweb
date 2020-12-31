@@ -257,7 +257,34 @@ class Order extends BaseModel {
             const order_list_collection = this.db.collection(collections.order_list);
             let productList;
            
-              productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id), status:'Delivered'}).toArray();
+              productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id), status:'Delivered'},
+              {
+                  projection: {
+                    "order_id": 1,
+                    "razorpay_order_id": 1,
+                    "user_id": 1,
+                    "merchant_frysto_id": 1,
+                    "user_id_address": 1,
+                    "product_description": 1,
+                    "total_price": 1,
+                    "status": 1,
+                    "mode_of_payment":1,
+                    "delivery_time": 1,
+                    "order_time_date": 1,
+                    "payment_id": 1,
+                    "payment_status": 1,
+                    "order_otp": 1,
+                    "return_product_list": 1,
+                    "return_total_price": 1,
+                    "return_time": 1,
+                    "paid_applying_offer": 1,
+                    "shop_name": 1,
+                    "user_mobile_number": 1,
+                    "user_name": 1,
+                    "settelment_status":1,
+                  }
+              }
+              ).toArray();
             
             return (productList);
         } catch(error){
