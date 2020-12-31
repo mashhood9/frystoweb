@@ -252,6 +252,21 @@ class Order extends BaseModel {
         }
     }
     
+    async getOrderSettelmentStatusByMerchantId(merchant_id){
+        try{
+            const order_list_collection = this.db.collection(collections.order_list);
+            let productList;
+           
+              productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id), status:'Delivered'}).toArray();
+            
+            return (productList);
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getSettelmentList'); 
+        }
+    }
+
+    
       async pendingOrderByMerchantId(merchant_id){
         try{
             const order_list_collection = this.db.collection(collections.order_list);

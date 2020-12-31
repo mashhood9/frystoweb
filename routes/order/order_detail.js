@@ -82,6 +82,16 @@ router.get("/order/by_user_id/list_item/", async (req, res) => {
         res.status(error.statusCode || 500).send({ success: false, message: error.message });
     }
   });
+  router.get("/order_settelment/by_merchant_id", async (req, res) => {
+    try {
+        let adminController = new Order_Cycle();
+        let merchant_id = req.query.merchant_id || 0;
+        let response = await adminController.getOrderSettelmentStatusByMerchantId(merchant_id);
+        res.send({ success : true, data: response, message: 'order list successfully' });
+    } catch (error) {
+        res.status(error.statusCode || 500).send({ success: false, message: error.message });
+    }
+  });
  router.get("/order/pending_order_merchant_id", async (req, res) => {
     try {
         let adminController = new Order_Cycle();
