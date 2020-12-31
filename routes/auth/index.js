@@ -29,15 +29,15 @@ router.post('/signin/verify', async (req, res) => {
         res.status(error.statusCode || 500).send({ success: false, message: error.message, statusCode: error.statusCode || 500});
     }
 });
-router.post('/merchant_signin', async (req, res) => {
-    try {
-        let login = new Merchant_Login();
-        let token = await login.signin(req.body);
-         res.status(200).send({ success: true, token, message: 'Success', statusCode : 200 });
-    } catch (error) { 
-        res.status(error.statusCode || 500).send({ success: false, message: error.message, statusCode: error.statusCode || 500});
-    }
-});
+// router.post('/merchant_signin', async (req, res) => {
+//     try {
+//         let login = new Merchant_Login();
+//         let token = await login.signin(req.body);
+//          res.status(200).send({ success: true, token, message: 'Success', statusCode : 200 });
+//     } catch (error) { 
+//         res.status(error.statusCode || 500).send({ success: false, message: error.message, statusCode: error.statusCode || 500});
+//     }
+// });
 
 router.post('/forgot-password', async (req, res) => {
     try {
