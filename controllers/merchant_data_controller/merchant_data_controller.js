@@ -101,7 +101,9 @@ class merchant_data_details extends BaseModel {
 
                   return token;
 
-          } return new CustomError({error_message:error.message, error_statusCode:error.statusCode, meesage:'merchant does not exist'}); 
+          } else {
+            throw new CustomError('Oops! Invalid mobile number', 400, 'signin');
+        }
       }catch(error){
             console.log('Sign_in',error);
             return new CustomError({error_message:error.message, error_statusCode:error.statusCode, meesage:'merchant does not exist'}); 
