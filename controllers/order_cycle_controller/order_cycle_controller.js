@@ -78,6 +78,7 @@ class Order extends BaseModel {
                 shop_name:mchnt_name,
                 user_mobile_number:usr_mobile_number,
                 user_name:usr_name,
+                settelment_status:'Not Setteled'
                
                 
                 
@@ -154,6 +155,7 @@ class Order extends BaseModel {
                 shop_name:mchnt_name,
                 user_mobile_number:usr_mobile_number,
                 user_name:usr_name,
+                settelment_status:'Not Setteled'
                
                 
                 
