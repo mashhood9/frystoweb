@@ -323,6 +323,7 @@ class Order extends BaseModel {
                             "mode_of_payment":1,
                             "total_price":1,
                             "return_total_price":1,
+                            "status":1,
                         }
                     });
             }
