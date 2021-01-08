@@ -104,7 +104,7 @@ class Order extends BaseModel {
             let merchant_collection = this.db.collection(collections.merchant_data_detail);
             let user_collection = this.db.collection(collections.users);
             let frysto_order_id = await this.getNextUserIdValue();
-            let current_date = moment().utc().toDate();
+            let current_date =  moment().format('MMMM Do YYYY, h:mm A');
             let otp = Math.floor(1000 + Math.random() * 9000);
             let merchant_detail;
             let user_detail;
@@ -184,7 +184,7 @@ class Order extends BaseModel {
            
             let return_order_collection = this.db.collection(collections.return_order_list);
             let order_collection = this.db.collection(collections.order_list);
-            let current_date = moment().utc().toDate();
+            let current_date =  moment().format('MMMM Do YYYY, h:mm A');
             
             
              const find_order = await order_collection.findOne({
