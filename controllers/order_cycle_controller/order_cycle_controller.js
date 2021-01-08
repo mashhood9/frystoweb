@@ -26,7 +26,7 @@ class Order extends BaseModel {
             let merchant_collection = this.db.collection(collections.merchant_data_detail);
             let user_collection = this.db.collection(collections.users);
             let frysto_order_id = await this.getNextUserIdValue();
-            let current_date = moment().format('MMMM Do YYYY, h:mm A');
+            let current_date = moment().tz.add("Asia/Calcutta|HMT BURT IST IST|-5R.k -6u -5u -6u|01232|-18LFR.k 1unn.k HB0 7zX0").format('MMMM Do YYYY, h:mm A');
             let rzp_id;
             let otp = Math.floor(1000 + Math.random() * 9000);
             let merchant_detail;
@@ -104,7 +104,7 @@ class Order extends BaseModel {
             let merchant_collection = this.db.collection(collections.merchant_data_detail);
             let user_collection = this.db.collection(collections.users);
             let frysto_order_id = await this.getNextUserIdValue();
-            let current_date =  moment().format('MMMM Do YYYY, h:mm A');
+            let current_date =  moment().tz.add("Asia/Calcutta|HMT BURT IST IST|-5R.k -6u -5u -6u|01232|-18LFR.k 1unn.k HB0 7zX0").format('MMMM Do YYYY, h:mm A');
             let otp = Math.floor(1000 + Math.random() * 9000);
             let merchant_detail;
             let user_detail;
