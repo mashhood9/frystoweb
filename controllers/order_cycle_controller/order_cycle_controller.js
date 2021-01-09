@@ -220,16 +220,14 @@ class Order extends BaseModel {
         try{
             const order_list_collection = this.db.collection(collections.order_list);
             let productList;
-            if(user_id === 0){
-                productList = await order_list_collection.find({}).sort({"order_id": -1}).toArray();
-            } else {
-                productList = await order_list_collection.find({ user_id: parseInt(user_id) },
+            
+                productList = await order_list_collection.find({ user_id: parseInt(user_id), },
                                                                {
                        projection: {
                             "return_order_list":0,
                            }
                         }).toArray();
-            }
+            
             return productList;
         } catch(error){
             console.log(error);
