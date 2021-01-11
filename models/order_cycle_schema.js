@@ -20,6 +20,7 @@ const OrderListSchema = {
             })),
             product_description: Joi.string().trim().label('product_description').error(()=> 'Invalid product_description'),
             total_price:Joi.number().integer(),
+            delivery_charge:Joi.number().integer(),
             status:  Joi.string().trim().regex(regex.only_alphabets).label('Status').error(()=> 'order_status'),
             mode_of_payment:Joi.string().trim().regex(regex.only_alphabets).label('mode of payment').error(()=> 'mode of payment invalid'),
             delivery_time:Joi.string().trim().regex(regex.only_alphabets).label('delivery time').error(()=> 'delivery time'),
