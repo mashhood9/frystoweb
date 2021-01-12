@@ -318,16 +318,7 @@ class Order extends BaseModel {
             if(order_id === 0){
                 productList = await order_list_collection.find({}).toArray();
             } else {
-                productList = await order_list_collection.findOne({ order_id: parseInt(order_id) },
-                                                               {
-                        projection: {
-                            "product_list": 1,
-                            "mode_of_payment":1,
-                            "total_price":1,
-                            "return_total_price":1,
-                            "status":1,
-                        }
-                    });
+                productList = await order_list_collection.findOne({ order_id: parseInt(order_id) });
             }
             return productList;
         } catch(error){
