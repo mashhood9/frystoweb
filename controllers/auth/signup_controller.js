@@ -1,6 +1,6 @@
 const uuid = require('uuid/v4');
 const request = require("request");
-const moment = require('moment');
+const moment = require('moment-timezone');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const mongoClient = require('../../db/mongo_connection');
@@ -38,7 +38,7 @@ class Signup {
             const sendOTP = new SendOTP();
             let user_signup_data = joi_validator.validateModelSchema(signup_data, signupValidator.signup());
            
-            let current_date = moment().utc().toDate();
+            let current_date = moment().tz("Asia/Kolkata").format("dddd, MMMM Do YYYY, h:mm A");
             // Check user
             let user_collection = this.db.collection(collections.users);
             let user_data = await user_collection.findOne({$or:[{
