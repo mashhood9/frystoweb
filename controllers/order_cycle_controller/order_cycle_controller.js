@@ -70,7 +70,7 @@ class Order extends BaseModel {
                 delivery_time:validatedData.delivery_time,
                 order_time_date: current_date,
                 payment_id:'null',
-                payment_status:'order initiated',
+                payment_status:'order_initiated',
                 order_otp:otp,
                 return_product_list:'null',
                 return_total_price:0,
@@ -225,7 +225,7 @@ class Order extends BaseModel {
             if(user_id === 0){
                 productList = await order_list_collection.find({}).sort({"order_id": -1}).toArray();
             } else {
-                productList = await order_list_collection.find({ user_id: parseInt(user_id) }).sort({_id:-1}).toArray();
+                productList = await order_list_collection.find({ user_id: parseInt(user_id), payment_status: { $ne: "order_initiated" } }).sort({_id:-1}).toArray();
             }
             return productList;
         } catch(error){
