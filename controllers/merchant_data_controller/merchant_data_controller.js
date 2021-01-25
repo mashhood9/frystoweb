@@ -173,6 +173,8 @@ class merchant_data_details extends BaseModel {
                 shop_name:validatedData.shop_name,
                 mobile_number:validatedData.mobile_number,
                 account_number:validatedData.account_number,
+                delivery_boy_mobile_number:validatedData.delivery_boy_mobile_number,
+                shop_on_off_status:validatedData.shop_on_off_status,
                 bank_name:validatedData.bank_name,
                 ifsc_code:validatedData.ifsc_code,
                 delivery_range:validatedData.delivery_range,
