@@ -417,7 +417,7 @@ class Order extends BaseModel {
                    order_collection.findOneAndUpdate({razorpay_order_id:validatedData.rzp_order_id} , {$set:{payment_id:validatedData.payment_id, paid_applying_offer:paid_after_offer, payment_status:'Paid', }})
                    });
                console.log(paid_after_offer)
-               let order_id=order_collection.findOne({payment_id:validatedData.payment_id});
+               let order_id=order_collection.findOne({razorpay_order_id:validatedData.rzp_order_id});
                 
 
                 return (order_id);
