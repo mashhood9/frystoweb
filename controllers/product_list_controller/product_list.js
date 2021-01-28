@@ -112,11 +112,11 @@ class product_list_details extends BaseModel {
 
                if(status==false){
 
-                await product_list_collection.findOneAndUpdate({product_id:validatedData.product_id}, {$set:{status:true}})
+                await product_list_collection.findOneAndUpdate({product_id:parseInt(productId)}, {$set:{status:true}})
                 return 'price_updated';
 
                }else{
-                await product_list_collection.findOneAndUpdate({product_id:validatedData.product_id}, {$set:{status:false}})
+                await product_list_collection.findOneAndUpdate({product_id:parseInt(productId)}, {$set:{status:false}})
 
                 return 'price_updated';
 
