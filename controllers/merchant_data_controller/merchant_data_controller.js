@@ -312,6 +312,24 @@ async getUserByUserId(UserId){
         throw new CustomError(error.message, error.statusCode, 'userdata'); 
     }
 }
+
+//merchant data calling to view in merchant app
+
+
+async getFullMerchantDataByMerchantId(MerchantId){
+    try{
+        const order_list_collection = this.db.collection(collections.merchant_data_detail);
+        let Merchantdata;
+        if(MerchantId){
+        
+            Merchantdata = await order_list_collection.findOne({ merchant_frysto_id: parseInt(MerchantId) });
+        }
+        return (Merchantdata);
+    } catch(error){
+        console.log(error);
+        throw new CustomError(error.message, error.statusCode, 'userdata'); 
+    }
+}
     
     
     async getMerchantByMerchantId(MerchantId){
