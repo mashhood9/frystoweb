@@ -108,6 +108,8 @@ class product_list_details extends BaseModel {
                 product_id:parseInt(productId)
             })
 
+            console.log(status);
+
             if(find_product){
 
                if(status==false){
