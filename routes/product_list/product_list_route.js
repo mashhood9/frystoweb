@@ -40,7 +40,7 @@ router.get("/product-list", async (req, res) => {
     try {
         let adminController = new Product_List();
         let productId = req.query.product_id || 0;
-        let status = req.query.status || 0;
+        let status = req.query.status;
         let response = await adminController.productAvailabilityUpdate(productId, status);
         res.send({ success : true, data: response, message: 'Product list successfully' });
     } catch (error) {
