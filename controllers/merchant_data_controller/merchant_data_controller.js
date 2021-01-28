@@ -320,11 +320,20 @@ async getFullMerchantDataByMerchantId(MerchantId){
     try{
         const order_list_collection = this.db.collection(collections.merchant_data_detail);
         let Merchantdata;
-        if(MerchantId){
+        let result = await collection.findOne({
+            merchant_frysto_id:MerchantId,
+        });
+        if(result){
         
             Merchantdata = await order_list_collection.findOne({ merchant_frysto_id: parseInt(MerchantId) });
+
+            return (Merchantdata);
+        }else{
+
+            throw new CustomError('Oops! Invalid Merchant id', 400, 'Merchant Data');
+
         }
-        return (Merchantdata);
+       
     } catch(error){
         console.log(error);
         throw new CustomError(error.message, error.statusCode, 'userdata'); 
