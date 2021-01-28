@@ -93,6 +93,48 @@ class product_list_details extends BaseModel {
         }
     }
     
+
+
+
+    //switch product on off
+
+    async productAvailabilityUpdate(productId, status){
+        try{
+            
+            let joi_validator = new BaseModel();
+            let product_list_collection = this.db.collection(collections.product_list);
+
+            const find_product = await product_list_collection.findOne({
+                product_id:parseInt(productId)
+            })
+
+            if(find_product){
+
+               if(status==false){
+
+                await product_list_collection.findOneAndUpdate({product_id:validatedData.product_id}, {$set:{status:true}})
+                return 'price_updated';
+
+               }else{
+                await product_list_collection.findOneAndUpdate({product_id:validatedData.product_id}, {$set:{status:false}})
+
+                return 'price_updated';
+
+               }
+
+                  
+
+            }else{
+                throw new CustomError(error.message, error.statusCode, 'product id not found'); 
+
+            }
+        
+            
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'add_product_detail'); 
+        }
+    }
     
     async onboard_list(data){
         try{
