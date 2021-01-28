@@ -320,7 +320,7 @@ async getFullMerchantDataByMerchantId(MerchantId){
     try{
         const order_list_collection = this.db.collection(collections.merchant_data_detail);
         let Merchantdata;
-        let result = await collection.findOne({
+        let result = await order_list_collection.findOne({
             merchant_frysto_id:MerchantId,
         });
         if(result){
