@@ -101,7 +101,7 @@ class product_list_details extends BaseModel {
     async productAvailabilityUpdate(productId, status){
         try{
             
-            let joi_validator = new BaseModel();
+        
             let product_list_collection = this.db.collection(collections.product_list);
 
             const find_product = await product_list_collection.findOne({
