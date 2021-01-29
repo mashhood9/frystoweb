@@ -168,7 +168,23 @@ class product_list_details extends BaseModel {
     }
     
 
-    async getProductList(merchant_frysto_id){
+    async getProductListMerchant(merchant_frysto_id){
+        try{
+            const product_list_collection = this.db.collection(collections.product_list);
+            let productList;
+            if(merchant_frysto_id === 0){
+                productList = await product_list_collection.find({}).toArray();
+            } else {
+                productList = await product_list_collection.find({ merchant_frysto_id: parseInt(merchant_frysto_id) }).toArray();
+            }
+            return productList;
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
+
+    async getProductListCustomer(merchant_frysto_id){
         try{
             const product_list_collection = this.db.collection(collections.product_list);
             let productList;
