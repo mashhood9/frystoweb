@@ -124,6 +124,8 @@ class product_list_details extends BaseModel {
 
                 return 'price_updated';
 
+               }else{
+                throw new CustomError(error.message, error.statusCode, 'product id not updated'); 
                }
 
                   
