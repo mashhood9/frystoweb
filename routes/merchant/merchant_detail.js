@@ -71,18 +71,6 @@ router.get("/list/by_lat_lang", async (req, res) => {
   });
 
 
-  router.get("/deliveryboy/otp", async (req, res) => {
-    try {
-        let adminController = new Merchant_Data();
-        let OrderId = req.query.order_id || 0;
-        let otp = req.query.otp || 0;
-        let response = await adminController.checkOrderOtp(OrderId,otp);
-        res.send({ success : true, data: response, message: 'otp done successfully' });
-    } catch (error) {
-        res.status(error.statusCode || 500).send({ success: false, message: error.message });
-    }
-  });
-
 
   router.get("/fullmerchantdata", async (req, res) => {
     try {

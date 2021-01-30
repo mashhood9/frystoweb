@@ -38,6 +38,23 @@ router.post('/addreturnorder', async (req, res) => {
 
 
 
+router.get("/deliveryboy/otp", async (req, res) => {
+    try {
+        let adminController = new Order_Cycle();
+        let OrderId = req.query.order_id || 0;
+        let otp = req.query.otp || 0;
+        let response = await adminController.checkOrderOtp(OrderId,otp);
+        res.send({ success : true, data: response, message: 'otp done successfully' });
+    } catch (error) {
+        res.status(error.statusCode || 500).send({ success: false, message: error.message });
+    }
+  });
+
+
+
+
+
+
 
 
 router.get("/order/by_user_id", async (req, res) => {
