@@ -396,7 +396,8 @@ class Order extends BaseModel {
             let order_list_collection = this.db.collection(collections.order_list);
 
             const find_order = await order_list_collection.findOne({
-                order_id:parseInt(OrderId)
+                order_id:parseInt(OrderId),
+                order_otp:parseInt(otp)
             });
 
             if(find_order){
