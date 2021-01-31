@@ -406,13 +406,13 @@ async getFullMerchantDataByMerchantId(MerchantId){
 
                 await store_list_collection.findOneAndUpdate({merchant_frysto_id:parseInt(merchantId)}, {$set:{shop_on_off_status:"OPEN"}});
                 console.log('change to true');
-                return 'store_updated';
+                return 'store_updated open';
 
                }else if(status==1){
                 await store_list_collection.findOneAndUpdate({merchant_frysto_id:parseInt(merchantId)}, {$set:{shop_on_off_status:"CLOSE"}});
                 console.log('change to false');
 
-                return 'store_updated';
+                return 'store_updated to close';
 
                }else{
                 throw new CustomError(error.message, error.statusCode, 'store status id not updated'); 
