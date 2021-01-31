@@ -255,7 +255,7 @@ class merchant_data_details extends BaseModel {
 
             let productList;
 
-            productList= await merchant_list.find( {} ).toArray();
+            productList= await merchant_list.find( {shop_on_off_status: "OPEN"} ).toArray();
 
             function distance_match(lat1, long1, lat2, long2){
                 var point1 = new GeoPoint(lat1, long1);
