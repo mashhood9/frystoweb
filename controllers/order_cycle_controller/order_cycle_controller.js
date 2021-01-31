@@ -8,6 +8,8 @@ const FileUploader = require('../../utilities/file_uploader');
 const Razorpay = require('razorpay');
 const ordervalidator = require('../../models/order_cycle_schema');
 const moment = require('moment-timezone');
+const rzp_api = process.env.API_KEY_ID;
+const key_secret = process.env.API_KEY_SECRET;
 
 
 
@@ -33,7 +35,7 @@ class Order extends BaseModel {
             let user_detail;
             
 
-            var instance = new Razorpay({ key_id: 'rzp_test_iB0O6ZbG60hFox', key_secret: 'h6wJkCrlmPXnpYn9H6B28i8S' })
+            var instance = new Razorpay({ key_id: rzp_api, key_secret: key_secret })
             var options = {
                 amount:((validatedData.total_price) ),  // amount in the smallest currency unit
                 currency: "INR",
