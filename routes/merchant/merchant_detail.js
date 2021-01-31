@@ -83,6 +83,22 @@ router.get("/list/by_lat_lang", async (req, res) => {
     }
   });
 
+
+
+  // Shop on of status update
+
+  router.get("/shopavalaibleupdate", async (req, res) => {
+    try {
+        let adminController = new Merchant_Data();
+        let merchantId = req.query.merchant_id || 0;
+        let status = req.query.status;
+        let response = await adminController.shopAvailabilityUpdate(merchantId, status);
+        res.send({ success : true, data: response, message: 'Product list successfully' });
+    } catch (error) {
+        res.status(error.statusCode || 500).send({ success: false, message: error.message });
+    }
+  });
+
   router.get("/merchant/merchant_id", async (req, res) => {
     try {
         let adminController = new Merchant_Data();

@@ -364,7 +364,7 @@ async getFullMerchantDataByMerchantId(MerchantId){
         console.log(error);
         throw new CustomError(error.message, error.statusCode, 'userdata'); 
     }
-}
+    }
 
 
     async getOrderByMerchantId(merchant_id){
@@ -383,9 +383,58 @@ async getFullMerchantDataByMerchantId(MerchantId){
         }
     }
 
+
+
+
+    // Switch shop on off
+
+    async shopAvailabilityUpdate(merchantId, status){
+        try{
+            
+        
+            let store_list_collection = this.db.collection(collections.merchant_data_detail);
+
+            const find_store = await store_list_collection.findOne({
+                merchant_frysto_id:parseInt(merchantId)
+            })
+
+            console.log(status);
+
+            if(find_store){
+
+               if(status==0){
+
+                await store_list_collection.findOneAndUpdate({merchant_frysto_id:parseInt(merchantId)}, {$set:{shop_on_off_status:"OPEN"}});
+                console.log('change to true');
+                return 'store_updated';
+
+               }else if(status==1){
+                await store_list_collection.findOneAndUpdate({merchant_frysto_id:parseInt(merchantId)}, {$set:{shop_on_off_status:"CLOSE"}});
+                console.log('change to false');
+
+                return 'store_updated';
+
+               }else{
+                throw new CustomError(error.message, error.statusCode, 'store status id not updated'); 
+               }
+
+                  
+
+            }else{
+                throw new CustomError(error.message, error.statusCode, 'store status not found'); 
+
+            }
+        
+            
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'store_status_not_updated'); 
+        }
+    }
+
    
 
-
+    
 
 
     
