@@ -253,7 +253,7 @@ class Order extends BaseModel {
             }
 
             
-            await request(options, callback);
+          request(options, callback);
 
             return 'Call Connected';
 
