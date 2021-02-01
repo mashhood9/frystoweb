@@ -262,6 +262,55 @@ class Order extends BaseModel {
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
         }
     }
+
+
+    // delivery boy to user call
+
+
+    async connectDeliveryToUser(OrderId){
+        try{
+            const order_list_collection = this.db.collection(collections.order_list);
+            const merchant_list = this.db.collection(collections.merchant_data_detail);
+            let order_detail;
+            let merchant_detail;
+
+            order_detail = await order_list_collection.findOne({order_id:parseInt(OrderId)});
+            console.log(order_detail);
+            const order_data = order_detail;
+            let mchnt_id = order_data.merchant_frysto_id;
+            let user_mobile_number= order_data.user_mobile_number;
+
+
+            merchant_detail = await merchant_list.findOne({merchant_frysto_id:parseInt(mchnt_id)});
+            console.log(merchant_detail);
+            const merchant_obj = merchant_detail;
+            let delivery_number = merchant_obj.delivery_boy_mobile_number;
+
+
+            var dataString = 'From=0' + String(delivery_number) + '&To=0' + String(user_mobile_number) + '&CallerId=08047188008';
+            console.log(dataString);
+
+            var options = {
+                url: 'https://efba6b2456bc81d686d77c8aaba9f7b56dfd70b84a8dbb75:a196dd39164c980ea033ae8b6a91bc8be8da4b42a82c472c@api.exotel.com/v1/Accounts/frysto2/Calls/connect?'+ String(dataString),
+                method: 'POST',
+            };
+
+
+            function callback(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                }
+            }
+            request(options, callback);
+            console.log('done')
+
+            return 'Call Connected';
+
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
     
     
 

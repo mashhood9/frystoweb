@@ -124,6 +124,17 @@ router.get("/order/by_user_id/list_item/", async (req, res) => {
     }
   });
 
+  router.get("/deliverytousercall", async (req, res) => {
+    try {
+        let adminController = new Order_Cycle();
+        let OrderId = req.query.order_id || 0;
+        let response = await adminController.connectDeliveryToUser(OrderId);
+        res.send({ success : true, data: response, ermessage: 'call connected' });
+    } catch (error) {
+        res.status(error.statusCode || 500).send({ success: false, message: error.message });
+    }
+  });
+
 
 
   router.get("/order_settelment/by_merchant_id", async (req, res) => {
