@@ -8,6 +8,7 @@ const FileUploader = require('../../utilities/file_uploader');
 const Razorpay = require('razorpay');
 const ordervalidator = require('../../models/order_cycle_schema');
 const moment = require('moment-timezone');
+const needle = require('needle');
 const rzp_api = process.env.API_KEY_ID;
 const key_secret = process.env.API_KEY_SECRET;
 
@@ -240,21 +241,29 @@ class Order extends BaseModel {
             var dataString = 'From=0' + String(mchnt_number) + '&To=0' + String(user_mobile_number) + '&CallerId=08047188008';
             console.log(dataString);
 
-            var options = {
-                url: 'https://efba6b2456bc81d686d77c8aaba9f7b56dfd70b84a8dbb75:a196dd39164c980ea033ae8b6a91bc8be8da4b42a82c472c@api.exotel.com/v1/Accounts/frysto2/Calls/connect',
-                method: 'POST',
-                body: dataString
-            };
+            // var options = {
+            //     url: 'https://efba6b2456bc81d686d77c8aaba9f7b56dfd70b84a8dbb75:a196dd39164c980ea033ae8b6a91bc8be8da4b42a82c472c@api.exotel.com/v1/Accounts/frysto2/Calls/connect',
+            //     method: 'POST',
+            //     body: dataString
+            // };
 
 
-            function callback(error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    console.log(body);
+            // function callback(error, response, body) {
+            //     if (!error && response.statusCode == 200) {
+            //         console.log(body);
+            //     }
+            // }
+
+          
+            let baseurl = 'https://efba6b2456bc81d686d77c8aaba9f7b56dfd70b84a8dbb75:a196dd39164c980ea033ae8b6a91bc8be8da4b42a82c472c@api.exotel.com/v1/Accounts/frysto2/Calls/connect' + String(dataString);
+            needle.post(baseurl, (err, res) => {
+                if (err)  { 
+                        return console.log(err); 
                 }
-            }
-
+                });
+           
             
-          request(options, callback);
+        //   request(options, callback);
           console.log('done')
 
             return 'Call Connected';
