@@ -221,6 +221,8 @@ class Order extends BaseModel {
         try{
             const order_list_collection = this.db.collection(collections.order_list);
             const merchant_list = this.db.collection(collections.merchant_data_detail);
+            let order_detail;
+            let merchant_detail;
 
             order_detail = await order_list_collection.findOne({order_id:parseInt(OrderId)});
             console.log(merchant_detail);
