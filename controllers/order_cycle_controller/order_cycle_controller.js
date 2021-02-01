@@ -225,7 +225,7 @@ class Order extends BaseModel {
             let merchant_detail;
 
             order_detail = await order_list_collection.findOne({order_id:parseInt(OrderId)});
-            console.log(merchant_detail);
+            console.log(order_detail);
             const order_data = order_detail;
             let mchnt_id = order_data.merchant_frysto_id;
             let user_mobile_number= order_data.user_mobile_number;
@@ -237,7 +237,8 @@ class Order extends BaseModel {
             let mchnt_number = merchant_obj.mobile_number;
 
 
-            var dataString = 'From=0' + String(mchnt_number) + '&To=0' + String(user_mobile_number) + '&CallerId=080-471-88008';
+            var dataString = 'From=0' + String(mchnt_number) + '&To=0' + String(user_mobile_number) + '&CallerId=08047188008';
+            console.log(dataString);
 
             var options = {
                 url: 'https://efba6b2456bc81d686d77c8aaba9f7b56dfd70b84a8dbb75:a196dd39164c980ea033ae8b6a91bc8be8da4b42a82c472c@api.exotel.com/v1/Accounts/frysto2/Calls/connect',
@@ -254,6 +255,7 @@ class Order extends BaseModel {
 
             
           request(options, callback);
+          console.log('done')
 
             return 'Call Connected';
 
