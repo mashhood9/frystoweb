@@ -216,7 +216,50 @@ class Order extends BaseModel {
         }
     }
     
-    
+    // merchant to user call
+    async connectMerchantToUser(OrderId){
+        try{
+            const order_list_collection = this.db.collection(collections.order_list);
+            const merchant_list = this.db.collection(collections.merchant_data_detail);
+
+            order_detail = await order_list_collection.findOne({order_id:parseInt(OrderId)});
+            console.log(merchant_detail);
+            const order_data = order_detail;
+            let mchnt_id = order_data.merchant_frysto_id;
+            let user_mobile_number= order_data.user_mobile_number;
+
+
+            merchant_detail = await merchant_list.findOne({merchant_frysto_id:parseInt(mchnt_id)});
+            console.log(merchant_detail);
+            const merchant_obj = merchant_detail;
+            let mchnt_number = merchant_obj.mobile_number;
+
+
+            var dataString = 'From=0' + String(mchnt_number) + '&To=0' + String(user_mobile_number) + '&CallerId=080-471-88008';
+
+            var options = {
+                url: 'https://efba6b2456bc81d686d77c8aaba9f7b56dfd70b84a8dbb75:a196dd39164c980ea033ae8b6a91bc8be8da4b42a82c472c@api.exotel.com/v1/Accounts/frysto2/Calls/connect',
+                method: 'POST',
+                body: dataString
+            };
+
+
+            function callback(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                }
+            }
+
+            
+            await request(options, callback);
+
+            return 'Call Connected';
+
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
     
     
 
@@ -438,7 +481,7 @@ class Order extends BaseModel {
                
                  let pymnt_id=validatedData.payment_id
                  
-                 let url = 'https://${rzp_api}:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/'+ pymnt_id ;
+                 let url = 'https://rzp_test_iB0O6ZbG60hFox:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/'+ pymnt_id ;
                  request.get(url, function (error, response, body) {
                  console.log('Response:', body);
                  const obj = JSON.parse(body);
