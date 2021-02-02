@@ -187,7 +187,7 @@ class merchant_data_details extends BaseModel {
 
                 let url= 'https://api.msg91.com/api/v5/otp/verify?mobile=91'+ String(Mobile_Number)+ '&otp='+ String(OTP)+ '&authkey='+ String(msg_api_key);
                 const response = await got.post(url, { json: true });
-                console.log(response)
+                console.log(response.body.type)
                 
                
             }else{
