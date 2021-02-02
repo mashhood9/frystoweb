@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const moment = require('moment');
+var request = require('request');
 let mongoClient = require('../../db/mongo_connection');
 let authToken = require('../../utilities/jwt.auth');
 let crypto = require('../../utilities/crypto');
