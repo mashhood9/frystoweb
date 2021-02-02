@@ -153,7 +153,7 @@ class merchant_data_details extends BaseModel {
                         console.log(result);
                     }
                 }
-                request(options, callback);
+              await request(options, callback);
                 console.log("siddiqui_verify");
 
               if(result ==test_result ){
