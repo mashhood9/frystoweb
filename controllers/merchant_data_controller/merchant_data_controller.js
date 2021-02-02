@@ -1,5 +1,6 @@
 var GeoPoint = require('geopoint');
 const needle = require('needle');
+var request = require('request');
 const bcrypt = require('bcrypt');
 const mongoClient = require('../../db/mongo_connection');
 let authToken = require('../../utilities/jwt.auth');
