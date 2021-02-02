@@ -139,26 +139,13 @@ class merchant_data_details extends BaseModel {
             let test_result="success";
             if(merchantdata){
 
-
-                let merchant_id= await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
-                              {
-                                  
-                                      projection: {
-                                          "merchant_frysto_id": 1,
-                                          
-                                      }
-              
-                                   } );
-
                 var options = {
                     url: 'https://api.msg91.com/api/v5/otp/verify?mobile=91'+ String(Mobile_Number)+ '&otp='+ String(OTP)+ '&authkey='+ String(msg_api_key),
                     method: 'POST',
                 };
-
-
     
     
-                function callback(error, response, body) {
+                await function callback(error, response, body) {
                     if (!error && response.statusCode == 200) {
                         console.log(body);
                         const obj = JSON.parse(body);
@@ -167,6 +154,15 @@ class merchant_data_details extends BaseModel {
                         
                         if(result ==test_result ){
                             console.log("merchant_id")
+                              let merchant_id= merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
+                              {
+                                  
+                                      projection: {
+                                          "merchant_frysto_id": 1,
+                                          
+                                      }
+              
+                                   } );
                               return merchant_id;
           
                           }else if(result =="error"){
