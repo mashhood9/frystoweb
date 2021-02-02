@@ -148,13 +148,13 @@ class merchant_data_details extends BaseModel {
                     if (!error && response.statusCode == 200) {
                         console.log(body);
                         const obj = JSON.parse(body);
-                        console.log(body.type);
                         result=((obj.type));
+                        console.log(result);
                     }
                 }
                 request(options, callback);
 
-                if(result=="success"){
+                if(result =="success"){
                     let merchant_id=await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
                     {
                         
