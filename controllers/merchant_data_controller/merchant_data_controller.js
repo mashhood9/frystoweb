@@ -226,6 +226,47 @@ class merchant_data_details extends BaseModel {
         }
     }
 
+
+
+    //resend to for call
+    
+    async merchant_resendOTP(Mobile_Number){
+        try{
+
+
+            let merchant_data_collection = this.db.collection(collections.merchant_data_detail);
+            let merchantdata = await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) });
+
+            if(merchantdata){
+
+
+                let url= 'https://api.msg91.com/api/v5/otp/retry?mobile=91' +String(Mobile_Number)+ '&authkey=' + String(msg_api_key);
+                const response = await got.post(url, { json: true });
+   
+                return 'done';
+            }else{
+                throw new CustomError('Oops! Invalid mobile number', 400, 'signin');
+
+            }
+
+            
+
+           
+         
+
+        } catch (error) {
+            console.log('otp ', error);
+            throw new CustomError(error.message, error.statusCode, error.functionName);
+        }
+    }
+
+
+
+
+
+
+
+
     async add_merchant_detail(data){
         try{
             
