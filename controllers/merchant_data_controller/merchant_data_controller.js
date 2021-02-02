@@ -151,29 +151,34 @@ class merchant_data_details extends BaseModel {
                         const obj = JSON.parse(body);
                         result=((obj.type));
                         console.log(result);
+                        
+                        if(result ==test_result ){
+                            console.log("merchant_id")
+                              let merchant_id= await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
+                              {
+                                  
+                                      projection: {
+                                          "merchant_frysto_id": 1,
+                                          
+                                      }
+              
+                                   } );
+                              return merchant_id;
+          
+                          }else if(result =="error"){
+                              throw new CustomError('Oops! Invalid otp or mobile number', 400, 'signin');
+          
+          
+                          }
+
+
+
                     }
                 }
-              await request(options, callback);
+                request(options, callback);
                 console.log("siddiqui_verify");
 
-              if(result ==test_result ){
-                  console.log("merchant_id")
-                    let merchant_id= await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
-                    {
-                        
-                            projection: {
-                                "merchant_frysto_id": 1,
-                                
-                            }
-    
-                         } );
-                    return merchant_id;
-
-                }else if(result =="error"){
-                    throw new CustomError('Oops! Invalid otp or mobile number', 400, 'signin');
-
-
-                }
+              
 
 
 
