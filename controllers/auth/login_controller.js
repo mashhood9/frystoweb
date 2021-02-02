@@ -7,6 +7,9 @@ const config = require('../../db/config').mongo_config;
 const collections = config.collections;
 const BaseModel = require('../../utilities/base_model');
 const validatorSchema = require('../../models/credentials_schema');
+const msg_api_key = process.env.MSG_91_AUTHKEY;
+const msg_template=process.env.TEMPLATE_ID;
+const got = require('got');
 
 class Login extends BaseModel{
     constructor() {
@@ -68,36 +71,57 @@ async signin(user_credentials) {
                 // } else {
                 //     throw new CustomError('Invalid Email/Password', 400, 'signin');
                 // }
-                const needle = require('needle');
-                var sessionId;
+                // const needle = require('needle');
+                // var sessionId;
                 
-                var otpId=Math.floor(100000 + Math.random() * 900000).toString();
-                var baseurl='https://2factor.in/API/V1/74ab6f7a-fc1c-11ea-9fa5-0200cd936042/SMS/';
-                var mobile_num= signin_data.mobile_number,
-                url = baseurl.concat(mobile_num.toString(),'/',otpId,'/','Frysto')
+                // var otpId=Math.floor(100000 + Math.random() * 900000).toString();
+                // var baseurl='https://2factor.in/API/V1/74ab6f7a-fc1c-11ea-9fa5-0200cd936042/SMS/';
+                // var mobile_num= signin_data.mobile_number,
+                // url = baseurl.concat(mobile_num.toString(),'/',otpId,'/','Frysto')
                 
 
 
 
-                  needle.get(url, {json: true}, (err, res) => {
-                            if (err)  { 
-                                    return console.log(err); 
-                            }
-                            let todo = res.body;
-                           console.log(todo);
-                           sessionId=todo.Details;
-                            });
+                //   needle.get(url, {json: true}, (err, res) => {
+                //             if (err)  { 
+                //                     return console.log(err); 
+                //             }
+                //             let todo = res.body;
+                //            console.log(todo);
+                //            sessionId=todo.Details;
+                //             });
                     
-                    let jwt_token= await authToken.encrypt({
-                        mobile_number:signin_data.mobile_number,
-                        sessionId:sessionId,
-                        otpId:otpId,
-                        expiresIn: "10h"
+                //     let jwt_token= await authToken.encrypt({
+                //         mobile_number:signin_data.mobile_number,
+                //         sessionId:sessionId,
+                //         otpId:otpId,
+                //         expiresIn: "10h"
                         
-                    });
-                    let token= crypto.encrypt(jwt_token)
+                //     });
+                //     let token= crypto.encrypt(jwt_token)
 
-                    return token;
+                //     return token;
+
+
+
+                var options = {
+                    url: 'https://api.msg91.com/api/v5/otp?authkey='+ String(msg_api_key) +'&template_id=' + String(msg_template) +'&mobile=91' + String(signin_data.mobile_number),
+                    method: 'POST',
+                };
+    
+    
+                function callback(error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        console.log(body);
+                        
+                    }
+                }
+                request(options, callback);
+
+
+
+
+                  return 'Message send';
 
             } else {
                 throw new CustomError('Oops! Invalid mobile number', 400, 'signin');
