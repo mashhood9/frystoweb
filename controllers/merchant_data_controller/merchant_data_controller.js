@@ -155,24 +155,24 @@ class merchant_data_details extends BaseModel {
                 //         result=((obj.type));
                 //         console.log(result);
                         
-                //         // if(result ==test_result ){
-                //         //     console.log("merchant_id")
-                //         //       let merchant_id= merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
-                //         //       {
+                //         if(result ==test_result ){
+                //             console.log("merchant_id")
+                //               let merchant_id= merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
+                //               {
                                   
-                //         //               projection: {
-                //         //                   "merchant_frysto_id": 1,
+                //                       projection: {
+                //                           "merchant_frysto_id": 1,
                                           
-                //         //               }
+                //                       }
               
-                //         //            } );
-                //         //       return merchant_id;
+                //                    } );
+                //               return merchant_id;
           
-                //         //   }else if(result =="error"){
-                //         //       throw new CustomError('Oops! Invalid otp or mobile number', 400, 'signin');
+                //           }else if(result =="error"){
+                //               throw new CustomError('Oops! Invalid otp or mobile number', 400, 'signin');
           
           
-                //         //   }
+                //           }
 
 
 
@@ -191,6 +191,28 @@ class merchant_data_details extends BaseModel {
                  console.log(obj);
                  result=((obj.type));
                  console.log(result)
+
+
+
+
+
+                 if(result ==test_result ){
+                      let merchant_id= merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
+                      {
+                          
+                              projection: {
+                                  "merchant_frysto_id": 1,
+                                  
+                              }
+      
+                           } );
+                      return merchant_id;
+  
+                  }else if(result =="error"){
+                      throw new CustomError('Oops! Invalid otp or mobile number', 400, 'signin');
+  
+  
+                  }
                 
                
             }else{
