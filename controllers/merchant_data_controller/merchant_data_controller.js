@@ -108,6 +108,7 @@ class merchant_data_details extends BaseModel {
                 function callback(error, response, body) {
                     if (!error && response.statusCode == 200) {
                         console.log(body);
+                        
                     }
                 }
                 request(options, callback);
@@ -153,12 +154,15 @@ class merchant_data_details extends BaseModel {
     
                 function callback(error, response, body) {
                     if (!error && response.statusCode == 200) {
-                        result= body;
+                        console.log(body);
+                        const obj = JSON.parse(body);
+                        console.log(body.type);
+                        result=((obj.type));
                     }
                 }
                 request(options, callback);
 
-                if(result.type=="success"){
+                if(result=="success"){
                     return merchantdata;
 
                 }
