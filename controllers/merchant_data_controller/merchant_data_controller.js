@@ -136,6 +136,7 @@ class merchant_data_details extends BaseModel {
             let merchantdata = await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) });
 
             let result;
+            let test_result="success";
             if(merchantdata){
 
                 var options = {
@@ -153,9 +154,11 @@ class merchant_data_details extends BaseModel {
                     }
                 }
                 request(options, callback);
+                console.log("siddiqui_verify");
 
-                if(result =="success"){
-                    let merchant_id=await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
+              if(result ==test_result ){
+                  console.log("merchant_id")
+                    let merchant_id= await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
                     {
                         
                             projection: {
@@ -166,7 +169,7 @@ class merchant_data_details extends BaseModel {
                          } );
                     return merchant_id;
 
-                }else if(result=="error"){
+                }else if(result =="error"){
                     throw new CustomError('Oops! Invalid otp or mobile number', 400, 'signin');
 
 
