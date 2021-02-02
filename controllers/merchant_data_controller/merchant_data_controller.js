@@ -133,15 +133,7 @@ class merchant_data_details extends BaseModel {
     async merchant_verifyOTP(OTP,Mobile_Number){
         try{
             let merchant_data_collection = this.db.collection(collections.merchant_data_detail);
-            let merchantdata = await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
-                {
-                    
-                        projection: {
-                            "merchant_frysto_id": 1,
-                            
-                        }
-
-                     } );
+            let merchantdata = await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) });
 
             let result;
             if(merchantdata){
@@ -163,7 +155,20 @@ class merchant_data_details extends BaseModel {
                 request(options, callback);
 
                 if(result=="success"){
-                    return merchantdata;
+                    let merchant_id=await merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
+                    {
+                        
+                            projection: {
+                                "merchant_frysto_id": 1,
+                                
+                            }
+    
+                         } );
+                    return merchant_id;
+
+                }else if(result=="error"){
+                    throw new CustomError('Oops! Invalid otp or mobile number', 400, 'signin');
+
 
                 }
 
