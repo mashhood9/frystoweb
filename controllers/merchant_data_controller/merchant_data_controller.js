@@ -15,6 +15,7 @@ const datavalidator = require('../../models/merchant_signup_credential');
 const rzp_api = process.env.API_KEY_ID;
 const msg_api_key = process.env.MSG_91_AUTHKEY;
 const msg_template=process.env.TEMPLATE_ID;
+const got = require('got');
 
 
 
@@ -139,6 +140,8 @@ class merchant_data_details extends BaseModel {
             let test_result="success";
             if(merchantdata){
 
+                // function getVerify(){
+                    
                 // var options = {
                 //     url: 'https://api.msg91.com/api/v5/otp/verify?mobile=91'+ String(Mobile_Number)+ '&otp='+ String(OTP)+ '&authkey='+ String(msg_api_key),
                 //     method: 'POST',
@@ -152,63 +155,41 @@ class merchant_data_details extends BaseModel {
                 //         result=((obj.type));
                 //         console.log(result);
                         
-                //         if(result ==test_result ){
-                //             console.log("merchant_id")
-                //               let merchant_id= merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
-                //               {
+                //         // if(result ==test_result ){
+                //         //     console.log("merchant_id")
+                //         //       let merchant_id= merchant_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
+                //         //       {
                                   
-                //                       projection: {
-                //                           "merchant_frysto_id": 1,
+                //         //               projection: {
+                //         //                   "merchant_frysto_id": 1,
                                           
-                //                       }
+                //         //               }
               
-                //                    } );
-                //               return merchant_id;
+                //         //            } );
+                //         //       return merchant_id;
           
-                //           }else if(result =="error"){
-                //               throw new CustomError('Oops! Invalid otp or mobile number', 400, 'signin');
+                //         //   }else if(result =="error"){
+                //         //       throw new CustomError('Oops! Invalid otp or mobile number', 400, 'signin');
           
           
-                //           }
+                //         //   }
 
 
 
+                        
                 //     }
                 // }
                 // request(options, callback);
                 // console.log("siddiqui_verify");
 
+                // return result;
+                // }
 
-                var options = {
-                    "method": "POST",
-                    "hostname": "api.msg91.com",
-                    "port": null,
-                    "path": '/api/v5/otp/verify?mobile=91'+ String(Mobile_Number)+ '&otp='+ String(OTP)+ '&authkey='+ String(msg_api_key),
-                    "headers": {}
-                  };
-                  
-                  var req = http.request(options, function (res) {
-                    var chunks = [];
-                  
-                    res.on("data", function (chunk) {
-                      chunks.push(chunk);
-                    });
-                  
-                    res.on("end", function () {
-                      var body = Buffer.concat(chunks);
-                      console.log(body.toString());
-                    });
-                  });
-                  
-                  req.end();
-
-              
-
-
-
-
+                let url= 'https://api.msg91.com/api/v5/otp/verify?mobile=91'+ String(Mobile_Number)+ '&otp='+ String(OTP)+ '&authkey='+ String(msg_api_key),
+                const response = await got.post(url, { json: true })
+                console.log(response.type)
                 
-
+               
             }else{
                 throw new CustomError('Oops! Invalid mobile number', 400, 'signin');
 

@@ -28,6 +28,7 @@
     "fs": "0.0.1-security",
     "fs-extra": "^8.1.0",
     "geopoint": "^1.0.1",
+    "got":"^11.8.1",
     "http": "0.0.0",
     "jimp": "^0.6.4",
     "jsonwebtoken": "^8.5.1",
