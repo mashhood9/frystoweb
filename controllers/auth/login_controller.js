@@ -133,35 +133,44 @@ async signin(user_credentials) {
         }
     }
     // VerifyOTP
-    async veryfyOTP(otp_data){
+    async veryfyOTP(OTP , Mobile_Number){
         try{
-            console.log(otp_data);
-            otp_data= this.validateModelSchema(otp_data, validatorSchema.otpverify());
-            let decrypted_token= await crypto.decrypt(otp_data.otp_token);
-            let authData= await authToken.verifyToken(decrypted_token);
-            if(authData){
-                let result=await this.db.collection(collections.users).findOne({
-                    mobile_number:authData.data.mobile_number,
-                    is_deleted:false,
-                    })
-                let userdata;
-                const order_list_collection = this.db.collection(collections.users);
-                if(otp_data.otp_number==authData.data.otpId){
-               userdata = await order_list_collection.findOne({ mobile_number: parseInt(authData.data.mobile_number) },
-                {
-                    
-                        projection: {
-                            "user_id": 1,
-                            "is_mobile_verified": 1,
-                            
-                        }
+            let user_data_collection = this.db.collection(collections.users);
+            let userdata = await user_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) });
 
-                     } );
-                console.log(userdata.user_id)
-                    return ({user_id:userdata.user_id});
-                }else{
-                    throw new CustomError('Oops! Invalid OTP number', 400, 'veryfyOTP');
+            let result;
+            let test_result="success";
+            if(userdata){
+
+
+                
+                let url= 'https://api.msg91.com/api/v5/otp/verify?mobile=91'+ String(Mobile_Number)+ '&otp='+ String(OTP)+ '&authkey='+ String(msg_api_key);
+                const response = await got.post(url, { json: true });
+                const obj = JSON.parse(response.body);
+                 console.log(obj);
+                 result=((obj.type));
+                 console.log(result)
+
+                 if(result ==test_result ){
+                    let user_id= user_data_collection.findOne({ mobile_number: parseInt(Mobile_Number) },
+                    {
+                        
+                            projection: {
+                                "user_id": 1,
+                                
+                            }
+    
+                         } );
+                    return user_id;
+
+                }else if(result =="error"){
+                    throw new CustomError('Oops! Invalid otp or mobile number', 400, 'signin');
+
+
                 }
+
+
+
 
             }
 

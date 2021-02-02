@@ -23,7 +23,9 @@ router.post('/signin', async (req, res) => {
 router.post('/signin/verify', async (req, res) => {
     try {
         let login = new Login();
-        let response = await login.veryfyOTP(req.body);
+        let OTP = req.query.otp;
+        let Mobile_Number = req.query.mobile_number;
+        let response = await login.veryfyOTP(OTP , Mobile_Number);
          res.status(200).send({ success: true, token: response, message: 'Success', statusCode : 200 });
     } catch (error) { 
         res.status(error.statusCode || 500).send({ success: false, message: error.message, statusCode: error.statusCode || 500});
