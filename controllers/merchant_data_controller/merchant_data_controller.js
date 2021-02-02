@@ -129,20 +129,10 @@ class merchant_data_details extends BaseModel {
 
     //VerifyOTP
 
-    async merchant_verifyOTP(otp_data){
+    async merchant_verifyOTP(OTP,Mobile_Number){
         try{
             console.log(otp_data);
-            otp_data= this.validateModelSchema(otp_data, datavalidator.merchant_otpverify());
-            let decrypted_token= await crypto.decrypt(otp_data.otp_token);
-            let authData= await authToken.verifyToken(decrypted_token);
-            if(authData){
-                let result=await this.db.collection(collections.merchant_data_detail).findOne({
-                    mobile_number:authData.data.mobile_number,
-                    })
-                let userdata;
-                const order_list_collection = this.db.collection(collections.merchant_data_detail);
-                if(otp_data.otp_number==authData.data.otpId){
-                userdata = await order_list_collection.findOne({ mobile_number: parseInt(authData.data.mobile_number) },
+            let merchantdata = await order_list_collection.findOne({ mobile_number: parseInt(authData.data.mobile_number) },
                 {
                     
                         projection: {
@@ -151,12 +141,35 @@ class merchant_data_details extends BaseModel {
                         }
 
                      } );
-                console.log(userdata.merchant_frysto_id)
-                    return (userdata.merchant_frysto_id);
 
-                }else{
-                    return 'wrong otp';
+            let result;
+            if(merchantdata){
+
+                var options = {
+                    url: 'https://api.msg91.com/api/v5/otp/verify?mobile=91'+ String(Mobile_Number)+ '&otp='+ String(OTP)+ '&authkey='+ String(msg_api_key),
+                    method: 'POST',
+                };
+    
+    
+                function callback(error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        result= body;
+                    }
                 }
+                request(options, callback);
+
+                if(result.type=="success"){
+                    return merchantdata;
+
+                }
+
+
+
+
+                
+
+            }else{
+                throw new CustomError('Oops! Invalid mobile number', 400, 'signin');
 
             }
 

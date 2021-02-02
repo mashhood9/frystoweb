@@ -35,10 +35,12 @@ router.post('/merchant_login', async (req, res) => {
     }
 });
 
-router.post('/merchant_signin_verify', async (req, res) => {
+router.get('/merchant_signin_verify', async (req, res) => {
     try {
         let login = new Merchant_Data();
-        let response = await login.merchant_verifyOTP(req.body);
+        let Mobile_Number = req.query.mobile_number;
+        let OTP = req.query.otp;
+        let response = await login.merchant_verifyOTP(OTP,Mobile_Number);
          res.status(200).send({ success: true, token: response, message: 'Success', statusCode : 200 });
     } catch (error) { 
         res.status(error.statusCode || 500).send({ success: false, message: error.message, statusCode: error.statusCode || 500});
