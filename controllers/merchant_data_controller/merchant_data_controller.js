@@ -131,7 +131,6 @@ class merchant_data_details extends BaseModel {
 
     async merchant_verifyOTP(OTP,Mobile_Number){
         try{
-            console.log(otp_data);
             let merchantdata = await order_list_collection.findOne({ mobile_number: parseInt(authData.data.mobile_number) },
                 {
                     
