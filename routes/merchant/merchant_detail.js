@@ -98,6 +98,19 @@ router.get("/list/by_lat_lang", async (req, res) => {
     }
   });
 
+ //checking on off status of shop
+
+  router.get("/check_status", async (req, res) => {
+    try {
+        let adminController = new Merchant_Data();
+        let MerchantId = req.query.merchant_id;
+        let response = await adminController.checkMerchantStoreStatus(MerchantId);
+        res.send({ success : true, data: response, message: 'Merchant data successfully' });
+    } catch (error) {
+        res.status(error.statusCode || 500).send({ success: false, message: error.message });
+    }
+  });
+
 
 
   // Shop on of status update

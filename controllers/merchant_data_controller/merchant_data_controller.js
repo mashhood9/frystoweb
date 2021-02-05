@@ -505,6 +505,38 @@ async getFullMerchantDataByMerchantId(MerchantId){
     }
 
 
+    async checkMerchantStoreStatus(MerchantId){
+        try{
+            const merchant_list_collection = this.db.collection(collections.merchant_data_detail);
+            let result = await merchant_list_collection.findOne({
+                merchant_frysto_id: parseInt(MerchantId)
+            });
+            let status;
+            let data;
+
+            if(result){
+
+                status= await merchant_list_collection.findOne({
+                    merchant_frysto_id: parseInt(MerchantId)
+                });
+
+                data=status.shop_on_off_status;
+
+                return data;
+
+              }else{
+                throw new CustomError('Oops! Invalid Merchant id', 400, 'Merchant Data');
+              }
+            
+
+        
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
+
+
 
 
     // Switch shop on off
@@ -553,13 +585,8 @@ async getFullMerchantDataByMerchantId(MerchantId){
         }
     }
 
-   
 
-    
-
-
-    
-        async getMasterProductList(merchant_id){
+     async getMasterProductList(merchant_id){
         try{
             const order_list_collection = this.db.collection(collections.master_product_list);
             let productList;
