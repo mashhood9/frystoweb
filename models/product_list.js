@@ -29,7 +29,7 @@ const ProductListSchema = {
         return Joi.object().keys({
             master_product_name: Joi.string().required().trim().label('master product name').error(()=> 'Invalid master product name'),
             master_product_image: Joi.string().required().trim().label('master product image name').error(()=> 'Invalid master product image name'),
-            master_product_detail: Joi.string().trim().label('master product detail name').error(()=> 'Invalid master product detail name'),
+            master_product_detail: Joi.string(),
             master_product_mrp: Joi.number().integer().required().label('master product mrp name').error(()=> 'Invalid master product mrp name'),
         })
       }
