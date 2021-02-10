@@ -43,6 +43,7 @@ const OrderListSchema = {
             })),
             total_price:Joi.number().integer(),
             return_total_price:Joi.number().integer(),
+            delivery_charge:Joi.number().integer(),
             mode_of_payment:Joi.string().required().trim().regex(regex.only_alphabets).label('mode of payment').error(()=> 'mode of payment invalid'),
            
 

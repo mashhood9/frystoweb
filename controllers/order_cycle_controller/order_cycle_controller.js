@@ -10,7 +10,7 @@ const ordervalidator = require('../../models/order_cycle_schema');
 const moment = require('moment-timezone');
 const needle = require('needle');
 const rzp_api = process.env.API_KEY_ID;
-const key_secret = process.env.API_KEY_SECRET;
+const rzp_key_secret = process.env.RZP_API_KEY_SECRET;
 
 
 
@@ -36,7 +36,7 @@ class Order extends BaseModel {
             let user_detail;
             
 
-            var instance = new Razorpay({ key_id: rzp_api, key_secret: key_secret })
+            var instance = new Razorpay({ key_id: rzp_api, key_secret: rzp_key_secret })
             var options = {
                 amount:((validatedData.total_price) ),  // amount in the smallest currency unit
                 currency: "INR",
@@ -196,7 +196,7 @@ class Order extends BaseModel {
                 order_id:validatedData.order_id
             })
             if(find_order){
-                order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_total_price:validatedData.return_total_price, return_time:current_date}})
+                order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_total_price:validatedData.return_total_price, return_time:current_date, delivery_charge:validatedData.delivery_charge}})
                };
             const payload = {
                 order_id:validatedData.order_id,

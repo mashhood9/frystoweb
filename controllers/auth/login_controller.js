@@ -9,7 +9,7 @@ const collections = config.collections;
 const BaseModel = require('../../utilities/base_model');
 const validatorSchema = require('../../models/credentials_schema');
 const msg_api_key = process.env.MSG_91_AUTHKEY;
-const msg_template=process.env.TEMPLATE_ID;
+const msg_template=process.env.MSG_TEMPLATE_ID;
 const got = require('got');
 
 class Login extends BaseModel{

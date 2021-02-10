@@ -14,7 +14,7 @@ const FileUploader = require('../../utilities/file_uploader');
 const datavalidator = require('../../models/merchant_signup_credential');
 const rzp_api = process.env.API_KEY_ID;
 const msg_api_key = process.env.MSG_91_AUTHKEY;
-const msg_template=process.env.TEMPLATE_ID;
+const msg_template=process.env.MSG_TEMPLATE_ID;
 const got = require('got');
 
 
