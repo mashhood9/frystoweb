@@ -473,14 +473,15 @@ async getFullMerchantDataByMerchantId(MerchantId){
                     
                 projection: {
                     "shop_name":1,
-                    "address":1
+                    "address":1,
+                    "shop_on_off_status":1
 
                     
                 }
 
              } );
         }
-        return ({shop_name:Userdata.shop_name, shop_address:Userdata.address})
+        return ({shop_name:Userdata.shop_name, shop_address:Userdata.address, shop_status:Userdata.shop_on_off_status})
     } catch(error){
         console.log(error);
         throw new CustomError(error.message, error.statusCode, 'userdata'); 
