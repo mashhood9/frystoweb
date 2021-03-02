@@ -151,7 +151,7 @@ class Order extends BaseModel {
                 delivery_time:validatedData.delivery_time,
                 order_time_date: current_date,
                 payment_id:'null',
-                payment_status:'on Delivery',
+                payment_status:'on_delivery',
                 order_otp:otp,
                 return_product_list:'null',
                 return_total_price:0,
