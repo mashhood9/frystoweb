@@ -190,27 +190,36 @@ class Order extends BaseModel {
             let return_order_collection = this.db.collection(collections.return_order_list);
             let order_collection = this.db.collection(collections.order_list);
             let current_date =  moment().format('MMMM Do YYYY, h:mm A');
-            
-            
-             const find_order = await order_collection.findOne({
-                order_id:validatedData.order_id
-            })
-            if(find_order){
-                order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_total_price:validatedData.return_total_price, return_time:current_date, delivery_charge:validatedData.delivery_charge}})
-               };
-            const payload = {
-                order_id:validatedData.order_id,
-                return_product_list:validatedData.return_product_list,
-                total_price:validatedData.total_price,
-                return_total_price:validatedData.return_total_price,
-                mode_of_payment:validatedData.mode_of_payment,
-                return_time:current_date,
-                
-                
-            };
 
-            await return_order_collection.insertOne(payload);
-            return payload;
+            let return_order= await return_order_collection.findOne({order_id:validatedData.order_id})
+            
+            if(!return_order){
+                const find_order = await order_collection.findOne({
+                    order_id:validatedData.order_id
+                })
+                if(find_order){
+                    order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_total_price:validatedData.return_total_price, return_time:current_date, delivery_charge:validatedData.delivery_charge}})
+                   };
+                const payload = {
+                    order_id:validatedData.order_id,
+                    return_product_list:validatedData.return_product_list,
+                    total_price:validatedData.total_price,
+                    return_total_price:validatedData.return_total_price,
+                    mode_of_payment:validatedData.mode_of_payment,
+                    return_time:current_date,
+                    
+                    
+                };
+    
+                await return_order_collection.insertOne(payload);
+                return payload;
+
+            }else{
+                console.log(error);
+                throw new CustomError(error.message, error.statusCode, 'Return order already done'); 
+
+            }
+            
         } catch(error){
             console.log(error);
             throw new CustomError(error.message, error.statusCode, 'Return order list'); 
