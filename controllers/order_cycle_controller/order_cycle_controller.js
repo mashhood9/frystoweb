@@ -198,7 +198,7 @@ class Order extends BaseModel {
                     order_id:validatedData.order_id
                 })
                 if(find_order){
-                    order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_total_price:validatedData.return_total_price, return_time:current_date, delivery_charge:validatedData.delivery_charge}})
+                  await  order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_total_price:validatedData.return_total_price, return_time:current_date, delivery_charge:validatedData.delivery_charge}})
                    };
                 const payload = {
                     order_id:validatedData.order_id,
@@ -358,11 +358,7 @@ class Order extends BaseModel {
         try{
             const order_list_collection = this.db.collection(collections.order_list);
             let productList;
-            if(merchant_id === 0){
-                productList = await order_list_collection.find({}).toArray();
-            } else {
-                productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id), status: "Accepted" }).toArray();
-            }
+             productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id), status: "Accepted" }).sort({_id:-1}).toArray();
             return ({order:productList});
         } catch(error){
             console.log(error);
