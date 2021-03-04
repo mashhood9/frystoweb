@@ -419,7 +419,7 @@ class Order extends BaseModel {
             if(merchant_id === 0){
                 productList = await order_list_collection.find({}).toArray();
             } else {
-                productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id) , status: "Pending", payment_status: { $ne: "order_initiated" } }).toArray();
+                productList = await order_list_collection.find({merchant_frysto_id: parseInt(merchant_id) , status: "Pending", payment_status: { $ne: "order_initiated" } }).sort({_id:-1}).toArray();
             }
             return ({order:productList});
         } catch(error){
