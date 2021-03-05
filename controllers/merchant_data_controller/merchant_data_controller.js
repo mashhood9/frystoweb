@@ -306,7 +306,8 @@ class merchant_data_details extends BaseModel {
                 state:validatedData.state,
                 post_code:validatedData.post_code,
                 date:current_date,
-                image_url:validatedData.image_url
+                image_url:validatedData.image_url,
+                total_items:'1100+'
 
                 
             };
