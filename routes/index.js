@@ -6,6 +6,7 @@ const crypto = require('../utilities/crypto');
  const orderRouter =require('./order/order_detail')
  const merchantDataRouter =require('./merchant/merchant_detail')
  const productList= require('./product_list/product_list_route')
+ const order_admin=require('./order_admin/order_admin_route')
 const socialAuthRouter = require('./auth/social_auth_route');
 const userRouter = require('./user/user_route');
 const refreshTokenRouter = require('./refresh-token/index');
@@ -21,6 +22,7 @@ router.use('/social-auth', socialAuthRouter);
 router.use('/order', orderRouter);
 router.use('/merchant-list', merchantDataRouter);
 router.use('/product_list', productList);
+router.use('/adminorders', order_admin);
 
 
 
