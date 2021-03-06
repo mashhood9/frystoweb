@@ -35,13 +35,26 @@ class AdminOrderController extends BaseModel {
         }
     }
 
+    async BulkDeleteProductsAccordingToMerchant(merchant_frysto_id){
+        try{
+            const order_list_collection = this.db.collection(collections.product_list);
+            let productList;
+            productList = await order_list_collection.find({merchant_frysto_id:parseInt(merchant_frysto_id)}).remove();
+            
+            return 'done';
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
+
     async refundPartialOrder(order_id){
         try{
             const order_list_collection = this.db.collection(collections.order_list);
             let productList;
             order = await order_list_collection.findOne({order_id : parseInt(order_id)}).toArray();
 
-            
+
             
             return productList;
         } catch(error){
