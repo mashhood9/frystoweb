@@ -40,6 +40,8 @@ class AdminOrderController extends BaseModel {
             const order_list_collection = this.db.collection(collections.order_list);
             let productList;
             order = await order_list_collection.findOne({order_id : parseInt(order_id)}).toArray();
+
+            
             
             return productList;
         } catch(error){
