@@ -60,6 +60,8 @@ class Order extends BaseModel {
              let usr_name = user_obj.first_name
              let usr_mobile_number= user_obj.mobile_number
 
+            
+
              const payload = {
                 order_id:frysto_order_id,
                 razorpay_order_id:rzp_id,
@@ -85,6 +87,7 @@ class Order extends BaseModel {
                 user_mobile_number:usr_mobile_number,
                 user_name:usr_name,
                 settelment_status:'Not Setteled'
+
                
                 
                 
