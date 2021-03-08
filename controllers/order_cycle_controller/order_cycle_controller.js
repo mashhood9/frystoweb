@@ -191,7 +191,7 @@ class Order extends BaseModel {
            
             let return_order_collection = this.db.collection(collections.return_order_list);
             let order_collection = this.db.collection(collections.order_list);
-            let current_date =  moment().format('MMMM Do YYYY, h:mm A');
+            let current_date =  moment().tz("Asia/Kolkata").format("dddd, MMMM Do YYYY, h:mm A");
 
             let return_order= await return_order_collection.findOne({order_id:validatedData.order_id})
             
