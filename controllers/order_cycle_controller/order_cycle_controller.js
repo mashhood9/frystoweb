@@ -11,6 +11,8 @@ const moment = require('moment-timezone');
 const needle = require('needle');
 const rzp_api = process.env.API_KEY_ID;
 const rzp_key_secret = process.env.RZP_API_KEY_SECRET;
+const extl_api_key = process.env.EXTL_API_KEY;
+const extl_api_token = process.env.EXTL_API_TOKEN;
 
 
 
@@ -251,7 +253,7 @@ class Order extends BaseModel {
             console.log(dataString);
 
             var options = {
-                url: 'https://efba6b2456bc81d686d77c8aaba9f7b56dfd70b84a8dbb75:a196dd39164c980ea033ae8b6a91bc8be8da4b42a82c472c@api.exotel.com/v1/Accounts/frysto2/Calls/connect?'+ String(dataString),
+                url: 'https://'+ extl_api_key +':'+ extl_api_token +'@api.exotel.com/v1/Accounts/frysto2/Calls/connect?'+ String(dataString),
                 method: 'POST',
             };
 
@@ -300,7 +302,7 @@ class Order extends BaseModel {
             console.log(dataString);
 
             var options = {
-                url: 'https://efba6b2456bc81d686d77c8aaba9f7b56dfd70b84a8dbb75:a196dd39164c980ea033ae8b6a91bc8be8da4b42a82c472c@api.exotel.com/v1/Accounts/frysto2/Calls/connect?'+ String(dataString),
+                url: 'https://'+ extl_api_key +':'+ extl_api_token +'@api.exotel.com/v1/Accounts/frysto2/Calls/connect?'+ String(dataString),
                 method: 'POST',
             };
 

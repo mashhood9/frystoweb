@@ -11,6 +11,8 @@ const moment = require('moment-timezone');
 const needle = require('needle');
 const rzp_api = process.env.API_KEY_ID;
 const rzp_key_secret = process.env.RZP_API_KEY_SECRET;
+const extl_api_key = process.env.EXTL_API_KEY;
+const extl_api_token = process.env.EXTL_API_TOKEN;
 
 
 
