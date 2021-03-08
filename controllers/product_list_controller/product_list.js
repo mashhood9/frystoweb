@@ -189,7 +189,7 @@ class product_list_details extends BaseModel {
             const product_list_collection = this.db.collection(collections.product_list);
             let productList;
             
-                productList = await product_list_collection.find({ merchant_frysto_id: parseInt(merchant_frysto_id), status:true }).sort({product_hindi_name:-1}).toArray();
+                productList = await product_list_collection.find({ merchant_frysto_id: parseInt(merchant_frysto_id), status:true }).sort({product_hindi_name:1}).toArray();
            
             return productList;
         } catch(error){
