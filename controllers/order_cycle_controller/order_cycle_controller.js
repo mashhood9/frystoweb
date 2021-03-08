@@ -537,7 +537,7 @@ class Order extends BaseModel {
                
                  let pymnt_id=validatedData.payment_id
                  
-                 let url = 'https://rzp_test_iB0O6ZbG60hFox:h6wJkCrlmPXnpYn9H6B28i8S@api.razorpay.com/v1/payments/'+ pymnt_id ;
+                 let url = 'https://' + string(rzp_api) + ':' + string(rzp_key_secret)+'@api.razorpay.com/v1/payments/'+ pymnt_id ;
                  request.get(url, function (error, response, body) {
                  console.log('Response:', body);
                  const obj = JSON.parse(body);
