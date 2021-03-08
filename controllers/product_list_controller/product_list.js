@@ -175,7 +175,7 @@ class product_list_details extends BaseModel {
             if(merchant_frysto_id === 0){
                 productList = await product_list_collection.find({}).toArray();
             } else {
-                productList = await product_list_collection.find({ merchant_frysto_id: parseInt(merchant_frysto_id) }).toArray();
+                productList = await product_list_collection.find({ merchant_frysto_id: parseInt(merchant_frysto_id) }).sort({product_hindi_name:1}).toArray();
             }
             return productList;
         } catch(error){
