@@ -75,21 +75,21 @@ class AdminOrderController extends BaseModel {
                     key_secret: rzp_key_secret
                   })
 
-               await instance.payments.refund(paymentid, {parseInt(total_refund_ammount)},
-                (error, response) => {
-                    if (error) {
-                      console.log(error)
-                    } else {
-                      console.log(response.body);
-                      await order_list_collection.findOne({order_id : parseInt(order_id)}, {$set:{refund_status:"Initiated"}});
+               await instance.payments.refund(String(paymentid), {
+                amount: 500,
+                notes: {
+                  note1: 'refund',
+                  note2: 'data'
+                },
+              }).then((data) => {
+                await order_list_collection.findOne({order_id : parseInt(order_id)}, {$set:{refund_status:"Initiated"}});
+              }).catch((error) => {
+                console.error(error)
+                // error
+              })                
+                console.log('refund online done through rzp API');
 
-                    }
-                  });
-
-                
-                 console.log('refund online done through rzp API');
-
-                 return 'done'
+            return 'done'
 
 
 
