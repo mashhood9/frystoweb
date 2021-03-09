@@ -79,7 +79,7 @@ class AdminOrderController extends BaseModel {
                     if (error) {
                       // handle error
                     } else {
-                     return response.body
+                      console.log(response.body)
                     }
                   });
 
