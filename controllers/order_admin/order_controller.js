@@ -74,11 +74,7 @@ class AdminOrderController extends BaseModel {
                     key_secret: rzp_key_secret
                   })
 
-               await instance.payments.refund(paymentid, {total_refund_ammount, String(order_id) }).then((response) => {
-                 return 'successfully done'
-              }).catch((error) => {
-                // handle error
-              })
+               await instance.payments.refund(paymentid, {total_refund_ammount, String(order_id) });
 
 
 
