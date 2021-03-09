@@ -62,7 +62,7 @@ class AdminOrderController extends BaseModel {
 
             let order_to_refund= await order_list_collection.findOne({order_id:parseInt(order_id), refund_status:'Pending'});
             if(order_to_refund){
-                
+                let status;
                 const order = await order_list_collection.findOne({order_id : parseInt(order_id)});
                 let refund_ammount = order.return_total_price
                 let delivery_charge = order.delivery_charge
