@@ -94,7 +94,8 @@ class AdminOrderController extends BaseModel {
 
                 if(status=='ok'){
                     console.log('refund status to initiated');
-                    await order_list_collection.findOne({order_id : parseInt(order_id)}, {$set:{refund_status:"Initiated"}});
+                    await order_list_collection.findOneAndUpdate({order_id : parseInt(order_id)}, {$set:{refund_status:"Initiated"}});
+                    
                 }
 
             return 'done'
