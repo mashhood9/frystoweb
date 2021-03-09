@@ -90,12 +90,7 @@ class AdminOrderController extends BaseModel {
 
             }
 
-         
-
-
-
-            
-            return productList;
+        
         } catch(error){
             console.log(error);
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
