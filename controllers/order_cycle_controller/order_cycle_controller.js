@@ -86,7 +86,8 @@ class Order extends BaseModel {
                 shop_name:mchnt_name,
                 user_mobile_number:usr_mobile_number,
                 user_name:usr_name,
-                settelment_status:'Not Setteled'
+                settelment_status:'Not Setteled',
+                refund_status:'No Returns'
 
                
                 
@@ -165,7 +166,8 @@ class Order extends BaseModel {
                 shop_name:mchnt_name,
                 user_mobile_number:usr_mobile_number,
                 user_name:usr_name,
-                settelment_status:'Not Setteled'
+                settelment_status:'Not Setteled',
+                refund_status:'No Returns'
                
                 
                 
@@ -203,7 +205,7 @@ class Order extends BaseModel {
                     order_id:validatedData.order_id
                 })
                 if(find_order){
-                  await  order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_total_price:validatedData.return_total_price, return_time:current_date, delivery_charge:validatedData.delivery_charge}})
+                  await  order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{return_total_price:validatedData.return_total_price, return_time:current_date, delivery_charge:validatedData.delivery_charge, refund_status:'Pending' }})
                    };
                 const payload = {
                     order_id:validatedData.order_id,
