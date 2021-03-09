@@ -512,7 +512,7 @@ class Order extends BaseModel {
 
 
                 let order_collection = this.db.collection(collections.order_list);  
-                order_detail = await order_collection.findOne({order_id:parseInt(OrderId)});
+               const order_detail = await order_collection.findOne({order_id:parseInt(OrderId)});
                 let mode_of_payment = order_detail.mode_of_payment;
 
                 if(mode_of_payment=='COD'){
