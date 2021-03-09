@@ -25,6 +25,17 @@ router.get('/orders_to_refund', async(req,res) =>{
     }
 
 });
+router.get('/refund_order', async(req,res) =>{
+    try{
+        let order = new Order_Admin();
+        let order_id = req.query.order_id;
+        let response = await order.refundPartialOrder(order_id);
+        res.send({success:true, data:response, message:'orders list'});
+    }catch(error){
+        res.status(error.statusCode || 500).send(error.message);
+    }
+
+});
 
 router.get('/delete_product_merchant_id_bulk', async(req,res) =>{
     try{

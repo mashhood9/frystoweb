@@ -58,8 +58,37 @@ class AdminOrderController extends BaseModel {
     async refundPartialOrder(order_id){
         try{
             const order_list_collection = this.db.collection(collections.order_list);
-            let productList;
-            order = await order_list_collection.findOne({order_id : parseInt(order_id)}).toArray();
+            
+
+            let order_to_refund= await order_list_collection.findOne({order_id:parseInt(order_id), refund_status:'Pending'});
+            if(order_to_refund){
+                const order = await order_list_collection.findOne({order_id : parseInt(order_id)});
+                let refund_ammount = order.return_total_price
+                let delivery_charge = order.delivery_charge
+                let paymentid = order.payment_id
+
+                let total_refund_ammount = parseInt(refund_ammount)-parseInt(delivery_charge);
+
+                var instance = new Razorpay({
+                    key_id: rzp_api,
+                    key_secret: rzp_key_secret
+                  })
+
+               await instance.payments.refund(paymentid, {total_refund_ammount, String(order_id) }).then((response) => {
+                 return 'successfully done'
+              }).catch((error) => {
+                // handle error
+              })
+
+
+
+            }else{
+                throw new CustomError(error.message, error.statusCode, 'order id not found or some error')
+
+            }
+
+         
+
 
 
             
