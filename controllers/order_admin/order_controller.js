@@ -37,18 +37,23 @@ class AdminOrderController extends BaseModel {
         }
     }
 
-    async BulkDeleteProductsAccordingToMerchant(merchant_frysto_id){
+
+    async getAllOnlineOrderToRefund(){
         try{
-            const order_list_collection = this.db.collection(collections.product_list);
+            const order_list_collection = this.db.collection(collections.order_list);
             let productList;
-            productList = await order_list_collection.find({merchant_frysto_id:parseInt(merchant_frysto_id)}).remove();
+            productList = await order_list_collection.find({mode_of_payment:'ONLINE', return_total_price:{$ne:0}, refund_status:'Pending'}).sort({"order_id": -1}).toArray();
             
-            return 'done';
+            return productList;
         } catch(error){
             console.log(error);
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
         }
     }
+
+   
+
+
 
     async refundPartialOrder(order_id){
         try{

@@ -14,6 +14,17 @@ router.get('/orders', async(req,res) =>{
     }
 
 });
+router.get('/orders_to_refund', async(req,res) =>{
+    try{
+        let order = new Order_Admin();
+        let id = req.query.id;
+        let response = await order.getAllOnlineOrderToRefund();
+        res.send({success:true, data:response, message:'orders list'});
+    }catch(error){
+        res.status(error.statusCode || 500).send(error.message);
+    }
+
+});
 
 router.get('/delete_product_merchant_id_bulk', async(req,res) =>{
     try{
