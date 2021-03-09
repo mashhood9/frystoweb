@@ -510,9 +510,26 @@ class Order extends BaseModel {
 
             if(find_order){
 
-                await order_list_collection.findOneAndUpdate({order_id:parseInt(OrderId), order_otp:parseInt(otp) },{ $set:{ status: "Delivered" } } );
 
-                return 'done'
+                let order_collection = this.db.collection(collections.order_list);  
+                order_detail = await order_collection.findOne({order_id:parseInt(OrderId)});
+                let mode_of_payment = order_detail.mode_of_payment;
+
+                if(mode_of_payment=='COD'){
+                    await order_list_collection.findOneAndUpdate({order_id:parseInt(OrderId), order_otp:parseInt(otp) },{ $set:{ status: "Delivered", refund_status:'COD' } } );
+
+                    return 'done'
+                }else{
+
+                    await order_list_collection.findOneAndUpdate({order_id:parseInt(OrderId), order_otp:parseInt(otp) },{ $set:{ status: "Delivered" } } );
+                    return 'done'
+
+                }
+
+
+                
+
+                
 
             }else {
                 throw new CustomError(error.message, error.statusCode, 'orderId not found'); 
