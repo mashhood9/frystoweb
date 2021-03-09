@@ -68,6 +68,7 @@ class AdminOrderController extends BaseModel {
                 let paymentid = order.payment_id
 
                 let total_refund_ammount = parseInt(refund_ammount)-parseInt(delivery_charge);
+                console.log(total_refund_ammount);
 
                 var instance = new Razorpay({
                     key_id: rzp_api,
@@ -77,7 +78,7 @@ class AdminOrderController extends BaseModel {
                await instance.payments.refund(paymentid, {total_refund_ammount},
                 (error, response) => {
                     if (error) {
-                      // handle error
+                      console.log(error)
                     } else {
                       console.log(response.body)
                     }
