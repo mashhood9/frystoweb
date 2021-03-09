@@ -77,7 +77,7 @@ class AdminOrderController extends BaseModel {
                   })
 
                await instance.payments.refund(String(paymentid), {
-                amount: 500,
+                amount: total_refund_ammount,
                 notes: {
                   note1: 'refund',
                   note2: 'data'
