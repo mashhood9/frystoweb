@@ -25,6 +25,20 @@ router.get('/orders_to_refund', async(req,res) =>{
     }
 
 });
+
+router.get('/vn/v65/axbtydfr/orders_to settel', async(req,res) =>{
+    try{
+        let order = new Order_Admin();
+        let token = req.query.tkn;
+        let merchant_id = req.query.id;
+        let response = await order.getAllOnlineOrderForSettelment(token, merchant_id);
+        res.send({success:true, data:response, message:'orders list'});
+    }catch(error){
+        res.status(error.statusCode || 500).send(error.message);
+    }
+
+});
+
 router.get('/refund_order', async(req,res) =>{
     try{
         let order = new Order_Admin();

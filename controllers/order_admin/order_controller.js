@@ -51,6 +51,48 @@ class AdminOrderController extends BaseModel {
         }
     }
 
+    async getAllOnlineOrderForSettelment(token, merchant_id){
+
+
+        try{
+
+            let verify_token ='adXb2Ynrs$6uy&garfascf'
+
+            if(token==verify_token){
+                const order_list_collection = this.db.collection(collections.order_list);
+                const merchant_list = this.db.collection(collections.merchant_data_detail);
+                let merchant_data = await merchant_list.findOne({merchant_frysto_id:parseInt(merchant_id)});
+                let productList;
+                productList = await order_list_collection.find({merchant_frysto_id:parseInt(merchant_id), settelment_status:'Not Setteled', status:'Delivered', refund_status:{$ne:'Pending'}},
+                {
+                        
+                    projection: {
+                        "merchant_frysto_id":1,
+                        "order_id":1,
+                        "total_price":1,
+                        "delivery_charge":1,
+                        "mode_of_payment":1,
+                        "return_total_price":1,
+
+
+
+                        
+                    }
+
+                } 
+                ).sort({"order_id": -1}).toArray();
+                
+                return ({merchant_info:merchant_data , order_info: productList});
+            }else {
+                throw new CustomError(error.message, error.statusCode, 'invalid token'); 
+            }
+            
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
+
    
 
 
