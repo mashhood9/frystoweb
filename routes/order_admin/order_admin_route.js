@@ -26,7 +26,7 @@ router.get('/orders_to_refund', async(req,res) =>{
 
 });
 
-router.get('/vn/v65/axbtydfr/orders_to settel', async(req,res) =>{
+router.get('/vn/v65/axbtydfr/orders_to_settel', async(req,res) =>{
     try{
         let order = new Order_Admin();
         let token = req.query.tkn;
