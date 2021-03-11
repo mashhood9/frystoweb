@@ -56,9 +56,10 @@ class AdminOrderController extends BaseModel {
 
         try{
 
-            let verify_token ='adXb2Ynrs$6uy&garfascf'
+            let verify_token ='adXb2Ynrs$6uy&garfascf';
+            let to_verify_token = String(token);
 
-            if(token==verify_token){
+            if(to_verify_token==verify_token){
                 const order_list_collection = this.db.collection(collections.order_list);
                 const merchant_list = this.db.collection(collections.merchant_data_detail);
                 let merchant_data = await merchant_list.findOne({merchant_frysto_id:parseInt(merchant_id)});
