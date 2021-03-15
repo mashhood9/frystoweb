@@ -187,7 +187,13 @@ class product_list_details extends BaseModel {
             const carousel_list_collection = this.db.collection(collections.carousel_image);
             let carouselList;
             
-                carouselList = await carousel_list_collection.find({carousel_status:true}).toArray();
+                carouselList = await carousel_list_collection.find({carousel_status:true},
+                    {
+                        projection:{
+                            "carousel_link":1
+                        }
+                    }
+                ).toArray();
             
             return carouselList;
         } catch(error){
