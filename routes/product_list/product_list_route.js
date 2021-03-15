@@ -39,7 +39,7 @@ router.get("/product-list", async (req, res) => {
     try {
         let adminController = new Product_List();
         let response = await adminController.getCarouselImage();
-        res.send({ success : true, data: response, message: 'Carousel list successfully' });
+        res.send({ success : true, data_image: response, message: 'Carousel list successfully' });
     } catch (error) {
         res.status(error.statusCode || 500).send({ success: false, message: error.message });
     }
