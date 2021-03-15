@@ -182,6 +182,20 @@ class product_list_details extends BaseModel {
         }
     }
 
+    async getCarouselImage(){
+        try{
+            const carousel_list_collection = this.db.collection(collections.carousel_image);
+            let carouselList;
+            
+                carouselList = await product_list_collection.find({carousel_status:true}).toArray();
+            
+            return carouselList;
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
+
     async getProductListCustomer(merchant_frysto_id){
         try{
             const product_list_collection = this.db.collection(collections.product_list);

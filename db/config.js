@@ -26,7 +26,8 @@ let mongo_config = {
         return_order_list:"return_order_list",
         master_product_list:"master_product_list",
         onboard_product_list:"onboard_product_list",
-        merchant_query:"merchant_query"
+        merchant_query:"merchant_query",
+        carousel_image:"carousel_image",
 
     }
 }
