@@ -286,10 +286,7 @@ class merchant_data_details extends BaseModel {
             }
 
             const merchant_frysto_id = await this.getNextUserIdValue();
-            const sub_payload = {
-                merchant_offer:'offers',
-                merchant_last_settelment: 'Settelment not started'
-            }
+
 
             const payload = {
                 merchant_frysto_id:merchant_frysto_id,
@@ -311,9 +308,10 @@ class merchant_data_details extends BaseModel {
                 post_code:validatedData.post_code,
                 date:current_date,
                 image_url:validatedData.image_url,
+                merchant_offer:validatedData.merchant_offer,
                 total_items:'null',
                 total_order:'50+',
-                merchant_data:sub_payload
+                
 
                 
             };

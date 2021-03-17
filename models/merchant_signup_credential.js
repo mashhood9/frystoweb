@@ -45,6 +45,13 @@ const MerchantcredentialsSchema = {
         state: Joi.string().trim().regex(regex.only_alphabets).required().label('state').error(()=> 'Invalid city'),
         image_url: Joi.string().trim().required().label('image_url').error(()=> 'Invalid image_url'),
         post_code: Joi.number().required().label('post_code').error(()=> 'Invalid post_code'),
+        merchant_offers:Joi.array().items(Joi.object({
+          offer_name:Joi.string().label('offer_name').error(()=> 'Invalid offer_name'),
+          offer_detail:Joi.string().label('offer_detail').error(()=> 'Invalid offer_detail'),
+          offer_status:Joi.boolean().label('offer_status').error(()=>'Invalid offer_status'),
+          offer_image_url:Joi.boolean().label('offer_image_url').error(()=>'Invalid offer_imge_url'),
+
+        })),
       })
     },
 
