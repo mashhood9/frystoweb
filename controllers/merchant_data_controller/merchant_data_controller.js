@@ -605,6 +605,34 @@ async getFullMerchantDataByMerchantId(MerchantId){
             throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
         }
     }
+    // Merchant wise offer
+
+    async getOffersList(merchant_id){
+        try{
+            const offer_list_collection = this.db.collection(collections.merchant_data_detail);
+            let offerList;
+             let result = await offer_list_collection.findOne({merchant_frysto_id:parseInt(merchant_id)});
+
+             if(result){
+                 offerList = await offer_list_collection.findOne({merchant_frysto_id:parseInt(merchant_id)}, {
+                     
+                         projection:{
+                             "merchant_offers":1
+
+                         }
+                     
+                 });
+
+
+                return offerList;
+             }
+            
+          
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
 
     async getNextUserIdValue() {
         let collection = this.db.collection(collections.merchant_counters);

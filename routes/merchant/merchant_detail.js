@@ -24,6 +24,17 @@ router.post('/merchant_query', async (req, res) => {
     }
 });
 
+router.get('/merchantwiseoffersv2', async (req, res) => {
+    try {
+        let order = new Merchant_Data();        
+        let merchant_id = req.query.id;
+        let response = await order.getOffersList(merchant_id);
+        res.send({success:true, response});
+    } catch (error) {
+        res.status(error.statusCode || 500).send({error:error.message});
+    }
+});
+
 
 router.post('/merchant_login', async (req, res) => {
     try {
