@@ -2,7 +2,7 @@ const { MONGO_DB_CONNECTION_URL, MONGO_DB_NAME, AUTH_MONGO_DB_NAME } = require('
 
 let mongo_config = {
    // database_url: MONGO_DB_CONNECTION_URL || 'mongodb://localhost:27017/frysto',
-    database_url:"mongodb+srv://frystov1:80Xnh7JAVze8zfjf@cluster0.sexsl.mongodb.net/frysto?retryWrites=true&w=majority",
+    database_url:"mongodb+srv://frystov1:YeIiFZmbDZw5hMfx@cluster0.sexsl.mongodb.net/frysto?retryWrites=true&w=majority",
     database: MONGO_DB_NAME || 'frysto',
     options: {
         poolSize: 25,
