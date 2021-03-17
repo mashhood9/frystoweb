@@ -393,7 +393,7 @@ class merchant_data_details extends BaseModel {
 
              var filter_store= productList.filter(function(list) {
                  console.log(distance_match(lat1, long1, list.shop_latitude, list.shop_longitude) );
-                 return  distance_match(lat1, long1, list.shop_latitude, list.shop_longitude) < list.delivery_range ;
+                 return  distance_match(lat1, long1, list.shop_latitude, list.shop_longitude) < (list.delivery_range/1000) ;
                  
              })
 
