@@ -49,7 +49,7 @@ const MerchantcredentialsSchema = {
           offer_name:Joi.string().label('offer_name').error(()=> 'Invalid offer_name'),
           offer_detail:Joi.string().label('offer_detail').error(()=> 'Invalid offer_detail'),
           offer_status:Joi.boolean().label('offer_status').error(()=>'Invalid offer_status'),
-          offer_image_url:Joi.boolean().label('offer_image_url').error(()=>'Invalid offer_imge_url'),
+          offer_image_url:Joi.string().label('offer_image_url').error(()=>'Invalid offer_imge_url'),
 
         })),
       })
