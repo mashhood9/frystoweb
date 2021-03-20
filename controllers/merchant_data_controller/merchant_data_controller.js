@@ -371,9 +371,17 @@ class merchant_data_details extends BaseModel {
     async getListByPosition(user_latitude, user_longitude){
         try{
             const merchant_list = this.db.collection(collections.merchant_data_detail);
+            const location_record = this.db.collection(collections.location_data);
             var GeoPoint = require('geopoint');
             var lat1= parseFloat(user_latitude);
             var long1= parseFloat(user_longitude);
+
+            const payload_location={
+                latitude:user_latitude,
+                longitude:user_longitude
+            }
+
+            await location_record.insertOne(payload_location);
 
             
             
