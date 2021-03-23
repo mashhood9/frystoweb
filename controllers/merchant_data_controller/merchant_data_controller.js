@@ -6,6 +6,7 @@ const mongoClient = require('../../db/mongo_connection');
 let authToken = require('../../utilities/jwt.auth');
 let crypto = require('../../utilities/crypto');
 const moment = require('moment');
+const moment_tz= require('moment-timezone');
 const log_collections = require('../../db/config').mongo_config.log_collections;
 const config = require('../../db/config').mongo_config;
 const collections = config.collections;
@@ -372,16 +373,18 @@ class merchant_data_details extends BaseModel {
         try{
             const merchant_list = this.db.collection(collections.merchant_data_detail);
             const location_record = this.db.collection(collections.location_data);
+            let current_date= moment_tz().tz("Asia/Kolkata").format("dddd, MMMM Do YYYY, h:mm A");
             var GeoPoint = require('geopoint');
             var lat1= parseFloat(user_latitude);
             var long1= parseFloat(user_longitude);
 
             const payload_location={
                 latitude:user_latitude,
-                longitude:user_longitude
+                longitude:user_longitude,
+                date_time:current_date
             }
 
-            await location_record.insertOne(payload_location);
+            await location_record.insertOne(payload_);
 
             
             
