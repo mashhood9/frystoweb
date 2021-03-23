@@ -384,7 +384,7 @@ class merchant_data_details extends BaseModel {
                 date_time:current_date
             }
 
-            await location_record.insertOne(payload_);
+            await location_record.insertOne(payload_location);
 
             
             
