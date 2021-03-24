@@ -207,7 +207,22 @@ class product_list_details extends BaseModel {
             const product_list_collection = this.db.collection(collections.product_list);
             let productList;
             
-                productList = await product_list_collection.find({ merchant_frysto_id: parseInt(merchant_frysto_id), status:true }).sort({product_hindi_name: 1, status: 1}).toArray();
+                productList = await product_list_collection.find({ merchant_frysto_id: parseInt(merchant_frysto_id), status:true },
+                {
+                    projection:{
+                        "_id":1,
+                        "merchant_frysto_id":1,
+                        "product_english_name":1,
+                        "product_hindi_name":1,
+                        "product_id":1,
+                        "product_image_url":1,
+                        "product_mrp":1,
+                        "product_price":1,
+                        "product_quantity_detail":1,
+                        "tag":1
+                    }
+                }
+                ).sort({sort_order:1 ,product_hindi_name: 1, status: 1}).toArray();
            
             return productList;
         } catch(error){
