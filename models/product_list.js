@@ -19,9 +19,9 @@ const ProductListSchema = {
     
      UpdateProductData: () => {
         return Joi.object().keys({
-            product_id: Joi.number().integer().required(),
-            product_price: Joi.number().integer().required(),
-            product_mrp:  Joi.number().integer().required(),
+            product_id: Joi.number().integer().required().label('Product_id').error(()=> 'Invalid product_id'),
+            product_price: Joi.number().integer().required().label('product_price').error(()=> 'Invalid product_price'),
+            product_mrp:  Joi.number().integer().required().label('product_mrp').error(()=> 'Invalid product_mrp'),
         })
       },
     
