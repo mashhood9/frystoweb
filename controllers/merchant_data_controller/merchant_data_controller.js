@@ -384,13 +384,12 @@ class merchant_data_details extends BaseModel {
                 date_time:current_date
             }
 
-            await location_record.insertOne(payload_location);
-
             
             
 
 
             let productList;
+            await location_record.insertOne(payload_location);
 
             productList= await merchant_list.find( {shop_on_off_status: "OPEN"} ).toArray();
 
