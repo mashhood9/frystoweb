@@ -157,6 +157,22 @@ class AdminOrderController extends BaseModel {
         }
     }
 
+    async getOfferListToUser(){
+        try{
+            const offer_list_collection = this.db.collection(collections.offer_list);
+            let offerList;
+            offerList = await offer_list_collection.find({offer_status:true}).toArray();
+            
+            return offerList;
+        } catch(error){
+            console.log(error);
+            throw new CustomError(error.message, error.statusCode, 'getMasterList'); 
+        }
+    }
+
+
+
+
 
 
 }

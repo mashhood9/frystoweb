@@ -28,7 +28,8 @@ let mongo_config = {
         onboard_product_list:"onboard_product_list",
         merchant_query:"merchant_query",
         carousel_image:"carousel_image",
-        location_data:"location_data"
+        location_data:"location_data",
+        offer_list:"offer_list"
 
     }
 }
