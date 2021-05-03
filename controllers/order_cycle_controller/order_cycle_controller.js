@@ -13,6 +13,7 @@ const rzp_api = process.env.API_KEY_ID;
 const rzp_key_secret = process.env.RZP_API_KEY_SECRET;
 const extl_api_key = process.env.EXTL_API_KEY;
 const extl_api_token = process.env.EXTL_API_TOKEN;
+const https = require('https');
 
 
 
@@ -142,6 +143,8 @@ class Order extends BaseModel {
              let usr_name = user_obj.first_name
              let usr_mobile_number= user_obj.mobile_number
 
+             this.OrderStatusMsg91(validatedData.status, frysto_order_id , usr_mobile_number, validatedData.total_price);
+
              const payload = {
                 order_id:frysto_order_id,
                 razorpay_order_id:'COD',
@@ -151,7 +154,7 @@ class Order extends BaseModel {
                 product_list:validatedData.product_list,
                 product_description:validatedData.product_description,
                 total_price:validatedData.total_price,
-                 delivery_charge:validatedData.delivery_charge,
+                delivery_charge:validatedData.delivery_charge,
                 status:validatedData.status,
                 mode_of_payment:validatedData.mode_of_payment,
                 delivery_time:validatedData.delivery_time,
@@ -487,6 +490,8 @@ class Order extends BaseModel {
             if(find_order){
                 order_collection.findOneAndUpdate({order_id:validatedData.order_id} , {$set:{status:validatedData.order_status}})
 
+
+
                 return 'done';
 
             }
@@ -595,6 +600,53 @@ class Order extends BaseModel {
             { new: true, returnOriginal: false, }
         );
         return sequenceDocument.value.sequence_value;
+    }
+
+
+    async OrderStatusMsg91(status, id, number,amount ) {
+
+        let mobile_number = "91" + String(number)
+        let total_amount = "Rs." + String(amount)
+        let final_status = String(status)
+        let order_id = "ID" + String(id)
+
+
+        const data = JSON.stringify({
+            "flow_id": "608d315c1a91bf72b63ec83a",
+            "mobiles": mobile_number,
+            "status": final_status,
+            "id": order_id,
+            "amount":total_amount,
+            "instalink":"https://instagram.com/frysto_india"
+          })
+          
+          const options = {
+            hostname: 'api.msg91.com',
+            port: 443,
+            path: '/api/v5/flow/',
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'api-key':'344558AVO73xXuTvj608924b4P1',
+              'Content-Length': data.length
+            }
+          }
+          
+          const req = https.request(options, res => {
+            console.log(`statusCode: ${res.statusCode}`)
+          
+            res.on('data', d => {
+              process.stdout.write(d)
+            })
+          })
+          
+          req.on('error', error => {
+            console.error(error)
+          })
+          
+          req.write(data)
+          req.end()
+
     }
 
 }
