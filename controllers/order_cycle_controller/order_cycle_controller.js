@@ -143,7 +143,7 @@ class Order extends BaseModel {
              let usr_name = user_obj.first_name
              let usr_mobile_number= user_obj.mobile_number
 
-             this.OrderStatusMsg91(validatedData.status, frysto_order_id , usr_mobile_number, validatedData.total_price);
+             this.OrderStatusMsg91(validatedData.status, frysto_order_id , usr_mobile_number, (validatedData.total_price / 100));
 
              const payload = {
                 order_id:frysto_order_id,
@@ -629,8 +629,8 @@ class Order extends BaseModel {
             path: '/api/v5/flow/',
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              'api-key':'344558AVO73xXuTvj608924b4P1',
+              'content-type': 'application/json',
+              'authkey':'344558AVO73xXuTvj608924b4P1',
               'Content-Length': data.length
             }
           }
