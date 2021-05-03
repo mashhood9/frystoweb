@@ -143,7 +143,7 @@ class Order extends BaseModel {
              let usr_name = user_obj.first_name
              let usr_mobile_number= user_obj.mobile_number
 
-             this.OrderStatusMsg91(validatedData.status, frysto_order_id , usr_mobile_number, (validatedData.total_price / 100));
+             this.OrderStatusMsg91("Placed", frysto_order_id , usr_mobile_number, (validatedData.total_price / 100));
 
              const payload = {
                 order_id:frysto_order_id,
